@@ -1,0 +1,27 @@
+html,
+body,
+main {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: #F3EEEA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p,
+h1,
+h2,
+h3,
+li,
+button,
+div,
+span,
+li {
+  font-family: sans-serif;
+}
+
+#root {
+  width: 100%;
+}
