@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css'
 
-
-
 const Header = () => {
+
+  const [isMenuActive, setIsMenuActive] = useState(false);
+
+  const openMenu = () => {
+    setIsMenuActive(!isMenuActive)
+  }
+
+  const [isLoginActive, setIsLoginActive] = useState(false);
+
+  const openLogin = () => {
+    setIsLoginActive(!isLoginActive)
+  }
+
   return (
     <div className="header">
       <div className="header__logo-container">
@@ -16,7 +27,7 @@ const Header = () => {
             height="48px"
           />
         </a>
-        <div className="accordionMenu">
+        <div className="accordionMenu" onClick={openMenu}>
           <img src="hamburgerMenu.png" alt="Hamburger Menu" />
         </div>
       </div>
@@ -28,15 +39,16 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="loginDiv">
+      <div className="loginDiv active">
         <img
+          onClick={openLogin}
           className="imageLogin"
           src="logoLogin.png"
           alt="Logo"
           width="48px"
           height="48px"
         />
-        <div className="divLoginForm">
+        <div className={`divLoginForm${isLoginActive ? ' active' : ''}`}>
           <h3>Logueate</h3>
           <div className="formLogin">
             <input
@@ -56,6 +68,26 @@ const Header = () => {
               Registrate
             </a>
           </div>
+        </div>
+      </div>
+      <div className={`menu-content${isMenuActive ? ' active' : ''}`}>
+        <div className="divGestionarTareas">
+          <ul>
+            <li>
+              <p>
+                <a href="exercises.html">Ver Tareas</a>
+              </p>
+            </li>
+            <li className="addTarea">
+              <p>Añadir Tarea</p>
+            </li>
+            <li className="addFood">
+              <p>Añadir Comida</p>
+            </li>
+          </ul>
+        </div>
+        <div className="divLogout">
+          <button>Cerrar Sesión</button>
         </div>
       </div>
     </div>

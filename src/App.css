@@ -20,6 +20,7 @@ div,
 span,
 li {
   font-family: sans-serif;
+  color: black;
 }
 
 #root {
