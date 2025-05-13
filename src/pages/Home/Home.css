@@ -1,0 +1,20 @@
+.explicacionApp,
+.objetivosApp {
+  padding: 16px;
+  background-color: white;
+  border-radius: 12px;
+  width: 40%;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textoHome{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    height: 100%;
+}

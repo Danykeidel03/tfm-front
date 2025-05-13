@@ -1,16 +1,21 @@
 import React from 'react';
 import Header from './components/Header/Header';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import Home from './pages/Home/Home';
 
 function App() {
- return (
-    <div className="App">
-      <Header />
-      <div style={{ padding: '1rem' }}>
-        <h1>Bienvenido a la app</h1>
-        <p>Aquí va el contenido principal.</p>
+  return (
+    <Router basename="/tfm-front">
+      <div className='app'>
+        <Header />
+        <div className='main-content'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

@@ -1,6 +1,9 @@
 html,
 body,
-main {
+main,
+#root,
+.main-content,
+.app {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -25,4 +28,12 @@ li {
 
 #root {
   width: 100%;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 90%;
 }

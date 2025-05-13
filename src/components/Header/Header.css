@@ -96,6 +96,8 @@ header {
   justify-content: center;
   align-items: center;
   gap: 35px;
+  left: 20px;
+  position: relative;
 }
 
 .header {
