@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import userServices from '../../services/apiUsers';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import schema from "./schemaValidations";
 import './Header.css'
 
 const Header = () => {
@@ -13,6 +17,15 @@ const Header = () => {
 
   const openLogin = () => {
     setIsLoginActive(!isLoginActive)
+  }
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  })
+
+  const onSubmit = async (dataLoginUser) => {
+    let datosLogin = await userServices.getLogin(dataLoginUser);
+    console.log(datosLogin);
   }
 
   return (
@@ -51,19 +64,23 @@ const Header = () => {
         <div className={`divLoginForm${isLoginActive ? ' active' : ''}`}>
           <h3>Logueate</h3>
           <div className="formLogin">
-            <input
-              type="email"
-              className="mailLogin"
-              placeholder="Mail"
-              name="mailLogin"
-            />
-            <input
-              type="password"
-              className="passLogin"
-              placeholder="Contraseña"
-              name="passLogin"
-            />
-            <button className="loginButton">Login</button>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                {...register('mail')}
+                type="mail"
+                className="mailLogin"
+                placeholder="Mail"
+              />
+              {errors.mail && <p className="form-error">{errors.mail.message}</p>}
+              <input
+                {...register('pass')}
+                type="password"
+                className="passLogin"
+                placeholder="Contraseña"
+              />
+              {errors.pass && <p className="form-error">{errors.pass.message}</p>}
+              <button className="loginButton submit">Login</button>
+            </form>
             <a className="urlRegister" href="register.html">
               Registrate
             </a>

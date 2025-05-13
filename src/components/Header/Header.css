@@ -41,10 +41,11 @@
   text-align: center;
 }
 
-.divLoginForm.active .formLogin {
+.divLoginForm.active .formLogin form,
+.divLoginForm.active .formLogin{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .divLoginForm.active .formLogin .urlRegister {
@@ -239,4 +240,11 @@ header {
   padding: 12px;
   border-radius: 12px;
   background-color: #F3EEEA;
+}
+
+.form-error{
+  margin: 0;
+  font-size: 11px;
+  margin-left: 2px;
+  color: red;
 }
