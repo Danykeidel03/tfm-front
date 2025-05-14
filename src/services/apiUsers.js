@@ -5,14 +5,12 @@ const URL_API = 'http://localhost:3000';
 const api = axios.create({
     baseURL: URL_API,
     timeout: 10000,
-    headers: {
-        'Content-Type': 'application/json'
-    },
     withCredentials: true
 })
 
 const userServices = {
-    getLogin: (userLoginData) => api.post('/user/login', userLoginData)
+    getLogin: (userLoginData) => api.post('/user/login', userLoginData),
+    registerUser: (userRegisterData) => api.post('/user', userRegisterData, { headers: { 'Content-Type': 'multipart/form-data' } })
 }
 
 export default userServices;

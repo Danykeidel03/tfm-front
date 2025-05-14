@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "./schemaValidations";
 import './Header.css'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -31,7 +32,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__logo-container">
-        <a title="Inicio" href="index.html" aria-label="Inicio">
+        <Link className="urlRegister" to="/">
           <img
             src="logo.png"
             alt="Logo"
@@ -39,7 +40,7 @@ const Header = () => {
             width="48px"
             height="48px"
           />
-        </a>
+        </Link>
         <div className="accordionMenu" onClick={openMenu}>
           <img src="hamburgerMenu.png" alt="Hamburger Menu" />
         </div>
@@ -81,9 +82,9 @@ const Header = () => {
               {errors.pass && <p className="form-error">{errors.pass.message}</p>}
               <button className="loginButton submit">Login</button>
             </form>
-            <a className="urlRegister" href="register.html">
+            <Link className="urlRegister" to="/register">
               Registrate
-            </a>
+            </Link>
           </div>
         </div>
       </div>

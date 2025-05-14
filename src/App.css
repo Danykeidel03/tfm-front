@@ -36,4 +36,7 @@ li {
   align-items: center;
   gap: 30px;
   max-width: 90%;
+  height: calc(100% - 103px);
+  position: absolute;
+  bottom: 0;
 }

@@ -1,0 +1,9 @@
+.divError {
+    width: 90%;
+    max-width: 460px;
+    padding: 8px;
+    background-color: #ffcdd2;
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}

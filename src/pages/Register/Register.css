@@ -1,0 +1,125 @@
+.divPersonalInfo,
+.divPass,
+.divConfirm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.divPersonalInfo h2,
+.divPass h2{
+    margin: 10px 0 10px 0;
+}
+
+.divPersonalInfo:has(.form-error),
+.divPass:has(.form-error) {
+    gap: 5px;
+}
+
+.divPersonalInfo div,
+.divPass div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    position: relative;
+}
+
+.registerForm {
+    height: auto;
+    justify-content: center;
+    padding-bottom: 36px;
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formRegister {
+    width: 100%;
+}
+
+.divConfirm {
+    width: 100%;
+}
+
+.divPersonalInfo div input,
+.divPersonalInfo div select,
+.divPass div input {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 8px;
+    width: 90%;
+    max-width: 460px;
+    box-sizing: unset;
+}
+
+.btnRegister {
+    border: 1px solid black;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: #F3EEEA;
+    margin-top: 10px;
+}
+
+.btnRegister:hover {
+    cursor: pointer;
+    border-color: black;
+}
+
+.divPass div .divError {
+    background: transparent;
+    position: absolute;
+    left: 44px;
+    width: auto;
+    display: block;
+    text-align: left;
+    font-size: 11px;
+}
+
+.divConfirm div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content h1 {
+    margin: 20px;
+}
+
+.main-content {
+    gap: 0px;
+}
+
+.registerForm input,
+.registerForm select {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 8px;
+    width: 90%;
+    max-width: 460px;
+    box-sizing: unset;
+    color: black;
+}
+
+form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 780px) {
+    .registerForm {
+        width: 90%;
+    }
+}
