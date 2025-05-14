@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import userServices from '../../services/apiUsers';
+import objServices from '../../services/apiObj';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "./schemaValidations";
 import './Header.css'
 import { Link } from 'react-router-dom';
+import Modal from '../Modal/Modal';
+import CardObj from '../CardObj/CardObj';
 
 const Header = () => {
 
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const [isModalExercisesOpen, setModalExercisesActive] = useState(false);
+  const [isModalFoodsOpen, setModalFoodsActive] = useState(false);
+  const [exerciseList, setExerciseList] = useState([]);
+  const [foodList, setFoodsList] = useState([]);
+
+  const toggleModalExercises = () => setModalExercisesActive(!isModalExercisesOpen);
+  const toggleModalFoods = async () => {
+    setModalFoodsActive(!isModalFoodsOpen);
+    try {
+      const response = await objServices.getFoods();
+      const foods = response.data.food;
+      setFoodsList(foods);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const openMenu = () => {
     setIsMenuActive(!isMenuActive)
@@ -27,6 +46,16 @@ const Header = () => {
   const onSubmit = async (dataLoginUser) => {
     let datosLogin = await userServices.getLogin(dataLoginUser);
     console.log(datosLogin);
+  }
+
+  const getExercises = async (muscle) => {
+    try {
+      const response = await objServices.getExercises(muscle);
+      const exercise = response.data.muscles;
+      setExerciseList(exercise);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -96,10 +125,10 @@ const Header = () => {
                 <a href="exercises.html">Ver Tareas</a>
               </p>
             </li>
-            <li className="addTarea">
+            <li className="addTarea" onClick={toggleModalExercises}>
               <p>Añadir Tarea</p>
             </li>
-            <li className="addFood">
+            <li className="addFood" onClick={toggleModalFoods}>
               <p>Añadir Comida</p>
             </li>
           </ul>
@@ -107,6 +136,49 @@ const Header = () => {
         <div className="divLogout">
           <button>Cerrar Sesión</button>
         </div>
+      </div>
+
+      <div className='modal-wrapper'>
+        <Modal isActive={isModalExercisesOpen} onClose={toggleModalExercises}>
+          <div className="opcionesDeEjercicios">
+            <h2>Opciones</h2>
+            <div className="buttonsEjercicios">
+              <button className="ejercicioEspalda" onClick={() => getExercises('back')}>Espalda</button>
+              <button className="ejercicioPecho" onClick={() => getExercises('chest')}>Pecho</button>
+              <button className="ejercicioHombro" onClick={() => getExercises('shoulders')}>Hombro</button>
+              <button className="ejercicioPierna" onClick={() => getExercises('upper legs')}>Pierna</button>
+              <button className="ejercicioBiceps" onClick={() => getExercises('upper arms')}>Biceps</button>
+              <button className="ejercicioCardio" onClick={() => getExercises('cardio')}>Cardio</button>
+            </div>
+            <div className="divAddEjercicios">
+              {exerciseList.map((exercise, index) => (
+                <CardObj
+                  photoLink={exercise.photoName}
+                  nameObj={exercise.name}
+                  descriptionObj={exercise.description}
+                  idObj={exercise._id}
+                  key={index}
+                />
+              ))}
+            </div>
+          </div>
+        </Modal>
+        <Modal isActive={isModalFoodsOpen} onClose={toggleModalFoods}>
+          <div className="opcionesDeComidas">
+            <h2>Opciones</h2>
+            <div className="divAddFoods">
+              {foodList.map((food, index) => (
+                <CardObj
+                  photoLink={food.photoName}
+                  nameObj={food.name}
+                  descriptionObj={food.description}
+                  idObj={food._id}
+                  key={index}
+                />
+              ))}
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

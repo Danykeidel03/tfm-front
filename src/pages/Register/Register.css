@@ -61,19 +61,6 @@
     box-sizing: unset;
 }
 
-.btnRegister {
-    border: 1px solid black;
-    padding: 12px;
-    border-radius: 12px;
-    background-color: #F3EEEA;
-    margin-top: 10px;
-}
-
-.btnRegister:hover {
-    cursor: pointer;
-    border-color: black;
-}
-
 .divPass div .divError {
     background: transparent;
     position: absolute;

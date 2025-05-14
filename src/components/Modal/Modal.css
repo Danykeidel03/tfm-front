@@ -1,0 +1,86 @@
+.modalClass {
+  display: none;
+}
+
+.modalClass.active {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlayModal {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(51, 51, 51, 0.55);
+}
+
+.contentModal {
+  z-index: 2;
+  width: 850px;
+  height: auto;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 12px;
+  position: relative;
+  padding: 15px;
+  max-height: 500px;
+  max-width: 85%;
+}
+
+.action-close:hover {
+  cursor: pointer;
+}
+
+.action-close::after,
+.action-close::before {
+  height: 1px;
+  background-color: #333;
+}
+
+.action-close::after {
+  content: "";
+  width: 18px;
+  transform: rotate(-45deg);
+  position: absolute;
+  opacity: 1;
+}
+
+.action-close::before {
+  content: "";
+  width: 18px;
+  transform: rotate(45deg);
+  position: absolute;
+  opacity: 1;
+}
+
+.action-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  color: transparent;
+}
+
+.modalClass h2{
+  text-align: center;
+}
+
+.modalClass:has(.opcionesDeComidas) .contentModal {
+  width: 500px;
+}
