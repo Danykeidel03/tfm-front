@@ -2,7 +2,6 @@ import React from 'react';
 import './CardObj.css';
 
 const CardObj = ({
-    photoLink,
     nameObj,
     descriptionObj,
     idObj,

@@ -8,16 +8,21 @@ import './Header.css'
 import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import CardObj from '../CardObj/CardObj';
+import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
 
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isModalExercisesOpen, setModalExercisesActive] = useState(false);
   const [isModalFoodsOpen, setModalFoodsActive] = useState(false);
+  const [isModalAddOpen, setModalAddOpen] = useState(false)
+  const [customModalType, setCustomModalType] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [foodList, setFoodsList] = useState([]);
+  const { userName, userPhoto, setUserName, setUserPhoto, logout } = useAuth();
 
   const toggleModalExercises = () => setModalExercisesActive(!isModalExercisesOpen);
+  const toggleModalAddCustom = () => { setModalAddOpen(!isModalAddOpen); setCustomModalType(null); };
   const toggleModalFoods = async () => {
     setModalFoodsActive(!isModalFoodsOpen);
     try {
@@ -45,7 +50,10 @@ const Header = () => {
 
   const onSubmit = async (dataLoginUser) => {
     let datosLogin = await userServices.getLogin(dataLoginUser);
-    console.log(datosLogin);
+    const nameUser = datosLogin.data.user;
+    const linkPhotoUser = datosLogin.data.photo;
+    setUserName(nameUser);
+    setUserPhoto(linkPhotoUser);
   }
 
   const getExercises = async (muscle) => {
@@ -75,14 +83,18 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="divUser">
-        <div className="bienvenidoUser"></div>
+      <div className={`divUser ${userName && 'active'}`}>
+        <div className="bienvenidoUser">
+          {userName && <span>{userName}</span>}
+        </div>
         <div className="bienvenidoUserPhoto">
-          <img className="imgUser" src="" alt="" />
+          {userPhoto && (
+            <img className="imgUser" src={userPhoto} alt="Foto de usuario" />
+          )}
         </div>
       </div>
 
-      <div className="loginDiv active">
+      <div className={`loginDiv ${userName ? '' : 'active'}`}>
         <img
           onClick={openLogin}
           className="imageLogin"
@@ -120,7 +132,7 @@ const Header = () => {
       <div className={`menu-content${isMenuActive ? ' active' : ''}`}>
         <div className="divGestionarTareas">
           <ul>
-            <li>
+            <li className={`viewExercises ${userName && 'active'}`}>
               <p>
                 <a href="exercises.html">Ver Tareas</a>
               </p>
@@ -134,7 +146,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="divLogout">
-          <button>Cerrar Sesión</button>
+          <button className={`${userName && 'active'}`} onClick={logout}>Cerrar Sesión</button>
         </div>
       </div>
 
@@ -161,6 +173,9 @@ const Header = () => {
                 />
               ))}
             </div>
+            <div className='divCustom'>
+              <button className='buttonAddCustomExercise' onClick={() => { toggleModalAddCustom(); setCustomModalType('exercise') }}>Añadir Manual</button>
+            </div>
           </div>
         </Modal>
         <Modal isActive={isModalFoodsOpen} onClose={toggleModalFoods}>
@@ -177,6 +192,25 @@ const Header = () => {
                 />
               ))}
             </div>
+            <div className='divCustom'>
+              <button className='buttonAddCustomFood' onClick={() => { toggleModalAddCustom(); setCustomModalType('food') }}>Añadir Manual</button>
+            </div>
+          </div>
+        </Modal>
+        <Modal isActive={isModalAddOpen} onClose={toggleModalAddCustom}>
+          <div className="modalAddManual">
+            {customModalType === 'exercise' && (
+              <div>
+                <h2>Añadir Ejercicio Manualmente</h2>
+                
+              </div>
+            )}
+            {customModalType === 'food' && (
+              <div>
+                <h2>Añadir Comida Manualmente</h2>
+                
+              </div>
+            )}
           </div>
         </Modal>
       </div>
