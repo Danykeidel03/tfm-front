@@ -9,6 +9,7 @@ const CardObj = ({
     type,
     photoObj = "notImage.webp", // para que puedas personalizar la imagen
     calories,
+    button,
     children
 }) => {
     const { userName } = useAuth();
@@ -51,12 +52,8 @@ const CardObj = ({
             <div className='divContentObj'>
                 <span className='nameObj'>{nameObj}</span>
                 <div className='nameInstructions'>
-                    {descriptionObj}
-                    <button
-                        id={idObj}
-                        className='addButton'
-                        onClick={addItemStorage}
-                    >+</button>
+                    {button ? descriptionObj : `${calories} Calorias`}
+                    {button && <button id={idObj} className='addButton' onClick={addItemStorage}>+</button>}
                 </div>
             </div>
             {children}

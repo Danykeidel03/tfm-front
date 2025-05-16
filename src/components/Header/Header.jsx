@@ -202,7 +202,9 @@ const Header = () => {
           <ul>
             <li className={`viewExercises ${userName && 'active'}`}>
               <p>
-                <a href="exercises.html">Ver Tareas</a>
+                <Link className="urlRegister" to="/exercises">
+                  Ejercicios
+                </Link>
               </p>
             </li>
             <li className="addTarea" onClick={toggleModalExercises}>
@@ -239,6 +241,7 @@ const Header = () => {
                   idObj={exercise._id}
                   calories={exercise.calories}
                   type='exercise'
+                  button={true}
                   key={index}
                 />
               ))}
@@ -260,6 +263,7 @@ const Header = () => {
                   idObj={food._id}
                   calories={food.calories}
                   type='food'
+                  button={true}
                   key={index}
                 />
               ))}

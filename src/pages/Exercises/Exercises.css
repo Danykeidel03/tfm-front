@@ -1,0 +1,53 @@
+.content-fitness {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.divGetEjercicios {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 767px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.content-fitness h3 {
+    font-size: 24px;
+    text-align: center;
+    margin: 10px 0 0 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+    width: 90%;
+}
+
+.content-fitness .imgPhotoObj {
+    max-width: 100px;
+}
+
+.content-fitness .divAddObj,
+.content-fitness .divAddFood {
+    max-width: 600px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.content-fitness .divContentObj{
+    flex-direction: row;
+    align-items: center;
+}
+
+.content-fitness .divContentObj .nameObj{
+    border-right: 1px solid #e8e8e8;
+    padding-right: 20px;
+}
+
+.main-content .content-fitness h1{
+    margin: 30px 0 0 0;
+}

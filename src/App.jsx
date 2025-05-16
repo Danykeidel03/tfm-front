@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css'
 import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
+import Exercises from './pages/Exercises/Exercises';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 function AppRoutes() {
@@ -14,6 +15,9 @@ function AppRoutes() {
 
       {!userName && <Route path="/register" element={<Register />} />}
       {userName && <Route path="/register" element={<Navigate to="/" replace />} />}
+
+      {userName && <Route path="/exercises" element={<Exercises />} />}
+      {!userName && <Route path="/exercises" element={<Exercises to="/" replace />} />}
     </Routes>
   );
 }
