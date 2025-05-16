@@ -227,14 +227,6 @@ header {
   background-repeat: no-repeat;
 }
 
-.divLoginForm.active .formLogin input {
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 12px;
-  padding: 12px;
-  color: black;
-}
-
 .divLoginForm.active .formLogin button {
   width: 30%;
   border: 1px solid black;
@@ -304,5 +296,9 @@ html .opcionesDeComidas .divAddObj {
 }
 
 .divCustom {
-  padding: 12px;
+  padding: 15px;
+}
+
+.divForm{
+  gap: 10px;
 }

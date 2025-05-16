@@ -4,11 +4,14 @@ import objServices from '../../services/apiObj';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "./schemaValidations";
+import schemaExercises from './schemaValidationsExercise'
+import schemaFood from './schemaValidationsFood';
 import './Header.css'
 import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import CardObj from '../CardObj/CardObj';
 import { useAuth } from '../../context/AuthContext';
+import Success from '../Success/Success';
 
 const Header = () => {
 
@@ -20,6 +23,8 @@ const Header = () => {
   const [exerciseList, setExerciseList] = useState([]);
   const [foodList, setFoodsList] = useState([]);
   const { userName, userPhoto, setUserName, setUserPhoto, logout } = useAuth();
+  const [successMessage, setSuccessMessage] = useState('');
+
 
   const toggleModalExercises = () => setModalExercisesActive(!isModalExercisesOpen);
   const toggleModalAddCustom = () => { setModalAddOpen(!isModalAddOpen); setCustomModalType(null); };
@@ -44,17 +49,80 @@ const Header = () => {
     setIsLoginActive(!isLoginActive)
   }
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register: loginRegister,
+    handleSubmit: handleLoginSubmit,
+    formState: { errors: loginErrors }
+  } = useForm({
     resolver: yupResolver(schema)
-  })
+  });
 
-  const onSubmit = async (dataLoginUser) => {
+  const {
+    register: exerciseRegister,
+    handleSubmit: handleExerciseSubmit,
+    formState: { errors: exerciseErrors },
+    setValue: setExerciseValue
+  } = useForm({
+    resolver: yupResolver(schemaExercises)
+  });
+
+
+  const {
+    register: foodRegister,
+    handleSubmit: handleFoodSubmit,
+    formState: { errors: foodErrors },
+    setValue: setFoodValue
+  } = useForm({
+    resolver: yupResolver(schemaFood)
+  });
+
+  const onLoginSubmit = async (dataLoginUser) => {
     let datosLogin = await userServices.getLogin(dataLoginUser);
     const nameUser = datosLogin.data.user;
     const linkPhotoUser = datosLogin.data.photo;
     setUserName(nameUser);
     setUserPhoto(linkPhotoUser);
   }
+
+  const onExerciseSubmit = async (dataExercise) => {
+    const formData = new FormData();
+    formData.append('name', dataExercise.nombreEjercicio);
+    if (dataExercise.urlEjercicio) {
+      formData.append('photo', dataExercise.urlEjercicio[0]);
+    }
+    formData.append('muscle', dataExercise.ejercicio);
+    formData.append('description', dataExercise.descripcionEjercicio);
+    formData.append('calories', dataExercise.caloriesEjercicio);
+    try {
+      let datosRegisterExercise = await objServices.newExercise(formData);
+      console.log(datosRegisterExercise);
+      if (datosRegisterExercise.status === 201) {
+        setSuccessMessage('Ejercicio Añadido')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const onFoodSubmit = async (dataFood) => {
+    console.log('Datos del alimento o ejercicio:', dataFood);
+    const formData = new FormData();
+    formData.append('name', dataFood.nameFood);
+    if (dataFood.photoFood) {
+      formData.append('photo', dataFood.photoFood[0]);
+    }
+    formData.append('calories', dataFood.caloriesFood);
+    try {
+      let datosRegisterFood = await objServices.newFood(formData);
+      console.log(datosRegisterFood);
+      if (datosRegisterFood.status === 201) {
+        setSuccessMessage('Comida Añadido')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const getExercises = async (muscle) => {
     try {
@@ -106,21 +174,21 @@ const Header = () => {
         <div className={`divLoginForm${isLoginActive ? ' active' : ''}`}>
           <h3>Logueate</h3>
           <div className="formLogin">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleLoginSubmit(onLoginSubmit)}>
               <input
-                {...register('mail')}
+                {...loginRegister('mail')}
                 type="mail"
                 className="mailLogin"
                 placeholder="Mail"
               />
-              {errors.mail && <p className="form-error">{errors.mail.message}</p>}
+              {loginErrors.mail && <p className="form-error">{loginErrors.mail.message}</p>}
               <input
-                {...register('pass')}
+                {...loginRegister('pass')}
                 type="password"
                 className="passLogin"
                 placeholder="Contraseña"
               />
-              {errors.pass && <p className="form-error">{errors.pass.message}</p>}
+              {loginErrors.pass && <p className="form-error">{loginErrors.pass.message}</p>}
               <button className="loginButton submit">Login</button>
             </form>
             <Link className="urlRegister" to="/register">
@@ -202,15 +270,91 @@ const Header = () => {
             {customModalType === 'exercise' && (
               <div>
                 <h2>Añadir Ejercicio Manualmente</h2>
-                
+                <form className="divForm" onSubmit={handleExerciseSubmit(onExerciseSubmit)}>
+                  <input
+                    {...exerciseRegister('nombreEjercicio')}
+                    type="text"
+                    className="nombreEjercicio"
+                    placeholder="Nombre Ejercicio"
+                  />
+                  {exerciseErrors.nombreEjercicio && <p className="form-error">{exerciseErrors.nombreEjercicio.message}</p>}
+
+                  <input
+                    {...exerciseRegister('urlEjercicio')}
+                    type="file"
+                    className="urlEjercicio"
+                    onChange={(e) => setExerciseValue('file', e.target.files[0])}
+                  />
+                  {exerciseErrors.urlEjercicio && <p className="form-error">{exerciseErrors.urlEjercicio.message}</p>}
+
+                  <input
+                    {...exerciseRegister('caloriesEjercicio', { valueAsNumber: true })}
+                    type="number"
+                    className="caloriesEjercicio"
+                    placeholder="Calorías"
+                  />
+                  {exerciseErrors.caloriesEjercicio && <p className="form-error">{exerciseErrors.caloriesEjercicio.message}</p>}
+
+                  <select {...exerciseRegister('ejercicio')} id="ejercicioSelect">
+                    <option value="back">Espalda</option>
+                    <option value="chest">Pecho</option>
+                    <option value="shoulders">Hombro</option>
+                    <option value="upper legs">Pierna</option>
+                    <option value="upper arms">Bíceps</option>
+                    <option value="cardio">Cardio</option>
+                  </select>
+
+                  <textarea
+                    {...exerciseRegister('descripcionEjercicio')}
+                    className="descripcionEjercicio"
+                    placeholder="Descripción Imagen"
+                  ></textarea>
+                  {exerciseErrors.descripcionEjercicio && <p className="form-error">{exerciseErrors.descripcionEjercicio.message}</p>}
+
+                  <button className="addCustomExercise submit">Añadir Ejercicio</button>
+                </form>
               </div>
             )}
             {customModalType === 'food' && (
               <div>
                 <h2>Añadir Comida Manualmente</h2>
-                
+                <form className="divForm" onSubmit={handleFoodSubmit(onFoodSubmit)}>
+                  <input
+                    {...foodRegister('nameFood', { required: 'El nombre es obligatorio' })}
+                    type="text"
+                    id="nameFood"
+                    className="nameFood"
+                    placeholder="Nombre del alimento o ejercicio"
+                  />
+                  {foodErrors.nameFood && <p className="form-error">{foodErrors.nameFood.message}</p>}
+
+                  <input
+                    {...foodRegister('photoFood', { required: 'La imagen es obligatoria' })}
+                    type="file"
+                    id="photoFood"
+                    className="photoFood"
+                    onChange={(e) => setFoodValue('file', e.target.files[0])}
+                  />
+                  {foodErrors.photoFood && <p className="form-error">{foodErrors.photoFood.message}</p>}
+
+                  <input
+                    {...foodRegister('caloriesFood', {
+                      required: 'Las calorías son obligatorias',
+                      valueAsNumber: true,
+                      min: { value: 1, message: 'Debe ser mayor que 0' },
+                    })}
+                    type="number"
+                    id="caloriesFood"
+                    className="caloriesFood"
+                    placeholder="Calorías"
+                  />
+                  {foodErrors.caloriesFood && <p className="form-error">{foodErrors.caloriesFood.message}</p>}
+
+                  <button className="addCustomFood submit">Añadir</button>
+                </form>
               </div>
             )}
+            {successMessage && <Success successMessage={successMessage} clearSuccess={() => setSuccessMessage('')} />}
           </div>
         </Modal>
       </div>

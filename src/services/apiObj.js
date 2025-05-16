@@ -10,7 +10,9 @@ const api = axios.create({
 
 const objServices = {
     getExercises: (muscle) => api.get(`/exercise/${muscle}`),
-    getFoods: () => api.get(`/food`)
+    getFoods: () => api.get(`/food`),
+    newExercise: (userExerciseData) => api.post('/exercise', userExerciseData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+    newFood: (userFoodData) => api.post('/food', userFoodData, { headers: { 'Content-Type': 'multipart/form-data' } }),
 }
 
 export default objServices;

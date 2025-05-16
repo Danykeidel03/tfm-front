@@ -32,7 +32,6 @@
   border-radius: 12px;
   position: relative;
   padding: 15px;
-  max-height: 500px;
   max-width: 85%;
 }
 
@@ -81,6 +80,18 @@
   text-align: center;
 }
 
-.modalClass:has(.opcionesDeComidas) .contentModal {
+.modalClass:has(.opcionesDeComidas) .contentModal,
+.modalClass:has(.modalAddManual) .contentModal {
   width: 500px;
+}
+
+.modalAddManual{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalAddManual div:first-child{
+  width: 100%;
 }
