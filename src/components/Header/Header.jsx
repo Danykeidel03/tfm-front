@@ -237,6 +237,8 @@ const Header = () => {
                   nameObj={exercise.name}
                   descriptionObj={exercise.description}
                   idObj={exercise._id}
+                  calories={exercise.calories}
+                  type='exercise'
                   key={index}
                 />
               ))}
@@ -256,6 +258,8 @@ const Header = () => {
                   nameObj={food.name}
                   descriptionObj={food.description}
                   idObj={food._id}
+                  calories={food.calories}
+                  type='food'
                   key={index}
                 />
               ))}
