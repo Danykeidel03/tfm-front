@@ -42,6 +42,36 @@ const CardObj = ({
         }
 
         localStorage.setItem(storageKey, JSON.stringify(arrayObjItems));
+        window.location.reload()
+    };
+
+     const endExercise = () => {
+        if (!userName) {
+            alert("No hay usuario en sesión");
+            return;
+        }
+
+        const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
+        const keyEjercicios = `${type}s-${safeUserName}`;
+        const keyFinalizados = `${type}s-Finalizados-${safeUserName}`;
+
+        let arrayObjExercisesEnded = [];
+
+        if (localStorage.getItem(keyFinalizados)) {
+            const ejerciciosFinalizados = JSON.parse(localStorage.getItem(keyFinalizados));
+            ejerciciosFinalizados.push({ nombre: nameObj, calorias: calories });
+            arrayObjExercisesEnded = ejerciciosFinalizados;
+            localStorage.removeItem(keyFinalizados);
+        } else {
+            arrayObjExercisesEnded = [{ nombre: nameObj, calorias: calories }];
+        }
+
+        const ejercicios = JSON.parse(localStorage.getItem(keyEjercicios)) || [];
+        const ejerciciosFiltrados = ejercicios.filter(item => item.nombre !== nameObj);
+
+        localStorage.setItem(keyFinalizados, JSON.stringify(arrayObjExercisesEnded));
+        localStorage.setItem(keyEjercicios, JSON.stringify(ejerciciosFiltrados));
+        window.location.reload()
     };
 
     return (
@@ -52,8 +82,8 @@ const CardObj = ({
             <div className='divContentObj'>
                 <span className='nameObj'>{nameObj}</span>
                 <div className='nameInstructions'>
-                    {button ? descriptionObj : `${calories} Calorias`}
-                    {button && <button id={idObj} className='addButton' onClick={addItemStorage}>+</button>}
+                    {button ? descriptionObj : `${calories} Cal`}
+                    {button ? <button id={idObj} className='addButton' onClick={addItemStorage}>+</button> : <button id={idObj} className='addButton' onClick={endExercise}>Finalizar</button>}
                 </div>
             </div>
             {children}

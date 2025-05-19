@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './Exercises.css'
 import CardObj from '../../components/CardObj/CardObj';
 import { useAuth } from '../../context/AuthContext';
+import objServices from '../../services/apiObj';
 
 
 const Exercises = () => {
@@ -9,6 +10,9 @@ const Exercises = () => {
     const { userName } = useAuth();
     const [exercises, setExercises] = useState([]);
     const [foods, setFoods] = useState([]);
+    const [exercisesEnded, setExercisesEnded] = useState([]);
+    const [foodsEnded, setFoodsEnded] = useState([]);
+    const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
 
     useEffect(() => {
         if (!userName) {
@@ -16,7 +20,6 @@ const Exercises = () => {
             return;
         }
 
-        const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
         const storageKeyExercise = `exercises-${safeUserName}`;
 
         const storedItemsExercises = localStorage.getItem(storageKeyExercise);
@@ -30,8 +33,39 @@ const Exercises = () => {
         if (storedItemsFoods) {
             setFoods(JSON.parse(storedItemsFoods));
         }
+
+        const storageKeyExerciseEnded = `exercises-Finalizados-${safeUserName}`;
+
+        const storedItemsExercisesEnded = localStorage.getItem(storageKeyExerciseEnded);
+        if (storedItemsExercisesEnded) {
+            setExercisesEnded(JSON.parse(storedItemsExercisesEnded));
+        }
+
+        const storageKeyFoodEnded = `foods-Finalizados-${safeUserName}`;
+
+        const storedItemsFoodsEnded = localStorage.getItem(storageKeyFoodEnded);
+        if (storedItemsFoodsEnded) {
+            setFoodsEnded(JSON.parse(storedItemsFoodsEnded));
+        }
     }, [userName]);
-    
+
+    function endRoutine() {
+        let finalCalories = 0;
+        const keyFinalizadosFods = JSON.parse(localStorage.getItem(`foods-Finalizados-${safeUserName}`));
+        const keyFinalizadosExercises = JSON.parse(localStorage.getItem(`exercises-Finalizados-${safeUserName}`));
+        keyFinalizadosExercises.forEach(exercise => {
+            finalCalories += exercise.calorias
+        });
+        keyFinalizadosFods.forEach(food => {
+            finalCalories += food.calorias
+        });
+        const formData = new FormData();
+        formData.append('calories', finalCalories);
+        objServices.endRoutine(formData)
+        localStorage.removeItem(`foods-Finalizados-${safeUserName}`)
+        localStorage.removeItem(`exercises-Finalizados-${safeUserName}`)
+        window.location.reload()
+    }
 
     return (
         <div className='content-fitness'>
@@ -44,6 +78,7 @@ const Exercises = () => {
                             photoLink={exercise.photoName}
                             nameObj={exercise.nombre}
                             calories={exercise.calorias}
+                            type={'exercise'}
                             key={index}
                         />
                     ))
@@ -58,14 +93,49 @@ const Exercises = () => {
                         <CardObj
                             photoLink={exercise.foto}
                             nameObj={exercise.nombre}
+                            type={'food'}
                             calories={exercise.calorias}
                             key={index}
                         />
                     ))
                 ) : (
-                    <p>No hay ejercicios guardados.</p>
+                    <p>No hay comidas guardadas.</p>
                 )}
             </div>
+            <h1>Completado</h1>
+            <div className="divGetEjerciciosEnded">
+                <h3>Ejercicios</h3>
+                {exercisesEnded.length > 0 ? (
+                    exercisesEnded.map((exercise, index) => (
+                        <CardObj
+                            photoLink={exercise.photoName}
+                            nameObj={exercise.nombre}
+                            calories={exercise.calorias}
+                            type={'exercise'}
+                            key={index}
+                        />
+                    ))
+                ) : (
+                    <p>No hay ejercicios completados.</p>
+                )}
+            </div>
+            <div className="divGetEjerciciosEnded">
+                <h3>Comidas</h3>
+                {foodsEnded.length > 0 ? (
+                    foodsEnded.map((exercise, index) => (
+                        <CardObj
+                            photoLink={exercise.foto}
+                            nameObj={exercise.nombre}
+                            type={'food'}
+                            calories={exercise.calorias}
+                            key={index}
+                        />
+                    ))
+                ) : (
+                    <p>No hay comidas completados.</p>
+                )}
+            </div>
+            <button className='finalizarRutina' onClick={endRoutine}>Finalizar Rutina</button>
         </div>
     )
 }
