@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL_API = 'https://tfm-back-k6m9.onrender.com';
+const URL_API = 'https://tfm-back-lzqq.onrender.com';
 
 const api = axios.create({
     baseURL: URL_API,
