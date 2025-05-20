@@ -59,11 +59,11 @@ const CardObj = ({
 
         if (localStorage.getItem(keyFinalizados)) {
             const ejerciciosFinalizados = JSON.parse(localStorage.getItem(keyFinalizados));
-            ejerciciosFinalizados.push({ nombre: nameObj, calorias: calories });
+            ejerciciosFinalizados.push({ nombre: nameObj, calorias: calories, foto: photoLink });
             arrayObjExercisesEnded = ejerciciosFinalizados;
             localStorage.removeItem(keyFinalizados);
         } else {
-            arrayObjExercisesEnded = [{ nombre: nameObj, calorias: calories }];
+            arrayObjExercisesEnded = [{ nombre: nameObj, calorias: calories, foto: photoLink }];
         }
 
         const ejercicios = JSON.parse(localStorage.getItem(keyEjercicios)) || [];
@@ -77,7 +77,7 @@ const CardObj = ({
     return (
         <div className='divAddObj'>
             <div className='divPhotoObj'>
-                <img src={`https://tfm-back-lzqq.onrender.com/uploads/${type}/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
+                <img src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
             </div>
             <div className='divContentObj'>
                 <span className='nameObj'>{nameObj}</span>

@@ -75,7 +75,7 @@ const Exercises = () => {
                 {exercises.length > 0 ? (
                     exercises.map((exercise, index) => (
                         <CardObj
-                            photoLink={exercise.photoName}
+                            photoLink={exercise.foto}
                             nameObj={exercise.nombre}
                             calories={exercise.calorias}
                             type={'exercise'}
@@ -108,7 +108,7 @@ const Exercises = () => {
                 {exercisesEnded.length > 0 ? (
                     exercisesEnded.map((exercise, index) => (
                         <CardObj
-                            photoLink={exercise.photoName}
+                            photoLink={exercise.foto}
                             nameObj={exercise.nombre}
                             calories={exercise.calorias}
                             type={'exercise'}
