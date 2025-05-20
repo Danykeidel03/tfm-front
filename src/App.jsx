@@ -1,11 +1,12 @@
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header/Header';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
+import Chat from './components/Chat/Chat';
 import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
 import Exercises from './pages/Exercises/Exercises';
-import Chat from './components/Chat/Chat';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import AdminPanel from './pages/AdminPanel/AdminPanel';
+import './App.css';
 
 function AppRoutes() {
   const { userName } = useAuth();
@@ -19,36 +20,38 @@ function AppRoutes() {
 
       {userName && <Route path="/exercises" element={<Exercises />} />}
       {!userName && <Route path="/exercises" element={<Navigate to="/" replace />} />}
+
+      {userName && <Route path="/panelAdmin" element={<AdminPanel />} />}
+      {!userName && <Route path="/panelAdmin" element={<Navigate to="/" replace />} />}
     </Routes>
   );
 }
 
 function AppContent() {
   const { userName } = useAuth();
+  const location = useLocation();
+
+  const isAdminPanel = location.pathname === '/panelAdmin';
 
   return (
-    <Router basename="/tfm-front">
-      <Header />
-      {userName && <Chat />}
+    <>
+      {!isAdminPanel && <Header />}
+      {!isAdminPanel && userName && <Chat />}
       <div className="main-content">
         <AppRoutes />
       </div>
-    </Router>
+    </>
   );
 }
 
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <Router basename="/tfm-front">
+        <AppContent />
+      </Router>
     </AuthProvider>
   );
 }
-
-/**
- * rm -rf dist   
- * npm run build
- * npm run deploy
- */
 
 export default App;

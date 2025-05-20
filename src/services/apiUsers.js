@@ -10,7 +10,21 @@ const api = axios.create({
 
 const userServices = {
     getLogin: (userLoginData) => api.post('/user/login', userLoginData),
-    registerUser: (userRegisterData) => api.post('/user', userRegisterData, { headers: { 'Content-Type': 'multipart/form-data' } })
+    registerUser: (userRegisterData) => api.post('/user', userRegisterData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+    adminGetUsers: () => api.get('/user', { headers: { 'Content-Type': 'multipart/form-data' } }),
+    adminGetExercises: () => api.get('/exercise/admin/all', { headers: { 'Content-Type': 'multipart/form-data' } }),
+    adminGetFoods: () => api.get('/food/admin', { headers: { 'Content-Type': 'multipart/form-data' } }),
+    updateStatusExercises: (idExercise) =>
+        api.put(`/exercise/admin/update/${idExercise}`,
+            { status: 'activate' },
+            { headers: { 'Content-Type': 'application/json' } }
+        ),
+
+    updateStatusFoods: (idFood) =>
+        api.put(`/food/admin/update/${idFood}`,
+            { status: 'activate' },
+            { headers: { 'Content-Type': 'application/json' } }
+        ),
 }
 
 export default userServices;
