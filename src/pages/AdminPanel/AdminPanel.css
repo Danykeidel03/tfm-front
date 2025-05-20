@@ -89,7 +89,7 @@ main {
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("/punto.png");
+  background-image: url("../punto.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -279,7 +279,7 @@ main {
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("/punto.png");
+  background-image: url("../punto.png");
   background-size: cover;
   background-repeat: no-repeat;
   top: 8px;
@@ -299,7 +299,7 @@ main {
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("/delete.webp");
+  background-image: url("../delete.webp");
   background-size: cover;
   background-repeat: no-repeat;
   top: 8px;
@@ -313,7 +313,7 @@ main {
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("/punto.png");
+  background-image: url("../punto.png");
   background-size: cover;
   background-repeat: no-repeat;
   top: 41%;

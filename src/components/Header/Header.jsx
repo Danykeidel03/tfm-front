@@ -84,42 +84,72 @@ const Header = () => {
     setUserPhoto(linkPhotoUser);
   }
 
-  const onExerciseSubmit = async (dataExercise) => {
+  const uploadToCloudinary = async (file, folder) => {
+    const cloudName = 'dp5ykchgc';
+    const uploadPreset = 'photos';
+
     const formData = new FormData();
-    formData.append('name', dataExercise.nombreEjercicio);
-    if (dataExercise.urlEjercicio) {
-      formData.append('photo', dataExercise.urlEjercicio[0]);
-    }
-    formData.append('muscle', dataExercise.ejercicio);
-    formData.append('description', dataExercise.descripcionEjercicio);
-    formData.append('calories', dataExercise.caloriesEjercicio);
+    formData.append('file', file);
+    formData.append('upload_preset', uploadPreset);
+    formData.append('folder', `photos/${folder}`);
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error.message || 'Error subiendo a Cloudinary');
+    return data.secure_url;
+  };
+
+  const onExerciseSubmit = async (dataExercise) => {
     try {
-      let datosRegisterExercise = await objServices.newExercise(formData);
-      console.log(datosRegisterExercise);
-      if (datosRegisterExercise.status === 201) {
-        setSuccessMessage('Ejercicio Añadido')
+      let imageUrl = '';
+
+      if (dataExercise.urlEjercicio && dataExercise.urlEjercicio[0]) {
+        imageUrl = await uploadToCloudinary(dataExercise.urlEjercicio[0], 'exercises');
+      }
+
+      const formData = new FormData();
+      formData.append('name', dataExercise.nombreEjercicio);
+      formData.append('photo', imageUrl);
+      formData.append('muscle', dataExercise.ejercicio);
+      formData.append('description', dataExercise.descripcionEjercicio);
+      formData.append('calories', dataExercise.caloriesEjercicio);
+
+      const response = await objServices.newExercise(formData);
+      console.log(response);
+
+      if (response.status === 201) {
+        setSuccessMessage('Ejercicio Añadido');
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error al registrar el ejercicio:', error);
     }
-  }
+  };
 
   const onFoodSubmit = async (dataFood) => {
-    console.log('Datos del alimento o ejercicio:', dataFood);
-    const formData = new FormData();
-    formData.append('name', dataFood.nameFood);
-    if (dataFood.photoFood) {
-      formData.append('photo', dataFood.photoFood[0]);
-    }
-    formData.append('calories', dataFood.caloriesFood);
     try {
-      let datosRegisterFood = await objServices.newFood(formData);
-      console.log(datosRegisterFood);
-      if (datosRegisterFood.status === 201) {
-        setSuccessMessage('Comida Añadido')
+      let imageUrl = '';
+
+      if (dataFood.photoFood && dataFood.photoFood[0]) {
+        imageUrl = await uploadToCloudinary(dataFood.photoFood[0], 'foods');
+      }
+
+      const formData = new FormData();
+      formData.append('name', dataFood.nameFood);
+      formData.append('photo', imageUrl);
+      formData.append('calories', dataFood.caloriesFood);
+
+      const response = await objServices.newFood(formData);
+      console.log(response);
+
+      if (response.status === 201) {
+        setSuccessMessage('Comida Añadida');
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error al registrar la comida:', error);
     }
   };
 

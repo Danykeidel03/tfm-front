@@ -15,20 +15,43 @@ const Register = () => {
         resolver: yupResolver(schema)
     })
 
-    const onSubmit = async (dataRegisterUser) => {
-        const formData = new FormData();
-        formData.append('name', dataRegisterUser.name);
-        formData.append('mail', dataRegisterUser.mail);
-        formData.append('role', 'usuario');
-        if (dataRegisterUser.file) {
-            formData.append('photo', dataRegisterUser.file);
-        }
-        formData.append('weight', dataRegisterUser.weight);
-        formData.append('height', dataRegisterUser.height);
-        formData.append('activity', dataRegisterUser.activity);
-        formData.append('pass', dataRegisterUser.pass);
+    const uploadToCloudinary = async (file, folder) => {
+        const cloudName = 'dp5ykchgc';
+        const uploadPreset = 'photos';
 
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', uploadPreset);
+        formData.append('folder', `photos/${folder}`);
+
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error.message || 'Error subiendo a Cloudinary');
+        return data.secure_url;
+    };
+
+    const onSubmit = async (dataRegisterUser) => {
         try {
+            let imageUrl = '';
+
+            if (dataRegisterUser.file && dataRegisterUser.file[0]) {
+                imageUrl = await uploadToCloudinary(dataRegisterUser.file[0], 'exercises');
+            }
+
+            const formData = new FormData();
+            formData.append('name', dataRegisterUser.name);
+            formData.append('mail', dataRegisterUser.mail);
+            formData.append('role', 'usuario');
+            formData.append('photo', imageUrl);
+            formData.append('weight', dataRegisterUser.weight);
+            formData.append('height', dataRegisterUser.height);
+            formData.append('activity', dataRegisterUser.activity);
+            formData.append('pass', dataRegisterUser.pass);
+
             let datosRegister = await userServices.registerUser(formData);
             console.log(datosRegister);
         } catch (error) {

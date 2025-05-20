@@ -61,7 +61,7 @@
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("logoLogin.png");
+  background-image: url("../logoLogin.png");
   background-size: cover;
   background-repeat: no-repeat;
   left: 15px;
@@ -170,7 +170,7 @@ header {
   bottom: 0;
   left: -12px;
   right: 0;
-  background-image: url("logout.png");
+  background-image: url("../logout.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -222,7 +222,7 @@ header {
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("punto.png");
+  background-image: url("../punto.png");
   background-size: cover;
   background-repeat: no-repeat;
 }

@@ -7,7 +7,7 @@ const CardObj = ({
     descriptionObj,
     idObj,
     type,
-    photoObj = "notImage.webp", // para que puedas personalizar la imagen
+    photoLink,
     calories,
     button,
     children
@@ -28,7 +28,7 @@ const CardObj = ({
             const storedItems = JSON.parse(localStorage.getItem(storageKey));
             storedItems.push({
                 nombre: nameObj,
-                foto: photoObj,
+                foto: photoLink,
                 calorias: calories,
             });
             arrayObjItems = storedItems;
@@ -36,7 +36,7 @@ const CardObj = ({
         } else {
             arrayObjItems = [{
                 nombre: nameObj,
-                foto: photoObj,
+                foto: photoLink,
                 calorias: calories,
             }];
         }
@@ -77,7 +77,7 @@ const CardObj = ({
     return (
         <div className='divAddObj'>
             <div className='divPhotoObj'>
-                <img src={photoObj} alt="photo-object" className='imgPhotoObj' />
+                <img src={`https://tfm-back-lzqq.onrender.com/uploads/${type}/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
             </div>
             <div className='divContentObj'>
                 <span className='nameObj'>{nameObj}</span>
