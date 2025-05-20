@@ -1,5 +1,4 @@
 import React from 'react';
-import './AdminTable.css';
 import userServices from '../../services/apiUsers';
 
 
