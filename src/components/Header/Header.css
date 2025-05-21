@@ -12,6 +12,7 @@
 .loginDiv.active {
   position: relative;
   right: 20px;
+  z-index: 3;
 }
 
 .divLoginForm.active {
@@ -299,6 +300,12 @@ html .opcionesDeComidas .divAddObj {
   padding: 15px;
 }
 
-.divForm{
+.divForm {
   gap: 10px;
+}
+
+@media(max-width: 800px) {
+  .bienvenidoUserPhoto {
+    display: flex;
+  }
 }

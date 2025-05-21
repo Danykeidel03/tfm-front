@@ -7,10 +7,6 @@ html .main-content:has(.menu-contentAdmin) {
     padding-bottom: 0;
 }
 
-#root:has(.menu-contentAdmin){
-  height: 100%;
-}
-
 .main-contentAdmin {
   width: calc(100% - 300px);
 }

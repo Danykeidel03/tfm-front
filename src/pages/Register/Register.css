@@ -9,7 +9,7 @@
 }
 
 .divPersonalInfo h2,
-.divPass h2{
+.divPass h2 {
     margin: 10px 0 10px 0;
 }
 
@@ -78,10 +78,6 @@
     align-items: center;
 }
 
-.main-content h1 {
-    margin: 20px;
-}
-
 .main-content {
     gap: 0px;
 }
@@ -105,8 +101,19 @@ form {
     justify-content: center;
 }
 
+.registroDiv {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 780px) {
     .registerForm {
         width: 90%;
+    }
+}
+
+@media (max-width: 700px) {
+    form {
+        width: 100%;
     }
 }

@@ -20,7 +20,6 @@
   justify-content: center;
   align-items: center;
   padding: 12px;
-  gap: 12px;
 }
 
 .divAddFood {
@@ -29,24 +28,24 @@
   justify-content: space-between;
 }
 
-.imgPhotoObj{
+.imgPhotoObj {
   max-height: 200px;
   width: auto;
 }
 
-.divContentObj .nameObj{
+.divContentObj .nameObj {
   text-transform: capitalize;
   font-size: 24px;
   font-family: sans-serif;
 }
 
-.divContentObj{
+.divContentObj {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.addButton{
+.addButton {
   border: .8px solid #bbb;
   background-color: #fff;
   margin: 0 15px;
@@ -54,11 +53,31 @@
   padding: 14px;
 }
 
-.addButton:hover{
+.addButton:hover {
   cursor: pointer;
 }
 
 
 .divPhotoObj img {
   max-width: 150px;
+}
+
+@media (max-width: 480px) {
+  .contentModal {
+    width: auto;
+  }
+
+  .divContentObj .nameObj {
+    font-size: 18px;
+  }
+
+  .nameInstructions {
+    font-size: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nameInstructions .addButton {
+    padding: 8px 16px 8px 16px;
+  }
 }
