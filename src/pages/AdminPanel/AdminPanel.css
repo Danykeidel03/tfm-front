@@ -1,8 +1,14 @@
-html .main-content {
+html .main-content:has(.menu-contentAdmin) {
     max-width: 100%;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    top: 0;
+    padding-bottom: 0;
+}
+
+#root:has(.menu-contentAdmin){
+  height: 100%;
 }
 
 .main-contentAdmin {

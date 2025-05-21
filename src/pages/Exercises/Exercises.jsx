@@ -51,20 +51,21 @@ const Exercises = () => {
 
     function endRoutine() {
         let finalCalories = 0;
-        const keyFinalizadosFods = JSON.parse(localStorage.getItem(`foods-Finalizados-${safeUserName}`));
-        const keyFinalizadosExercises = JSON.parse(localStorage.getItem(`exercises-Finalizados-${safeUserName}`));
+        const keyFinalizadosFods = JSON.parse(localStorage.getItem(`foods-Finalizados-${safeUserName}`)) || [];
+        const keyFinalizadosExercises = JSON.parse(localStorage.getItem(`exercises-Finalizados-${safeUserName}`)) || [];
+
         keyFinalizadosExercises.forEach(exercise => {
-            finalCalories += exercise.calorias
+            finalCalories += exercise.calorias;
         });
         keyFinalizadosFods.forEach(food => {
-            finalCalories += food.calorias
+            finalCalories += food.calorias;
         });
         const formData = new FormData();
         formData.append('calories', finalCalories);
-        objServices.endRoutine(formData)
-        localStorage.removeItem(`foods-Finalizados-${safeUserName}`)
-        localStorage.removeItem(`exercises-Finalizados-${safeUserName}`)
-        window.location.reload()
+        objServices.endRoutine(formData);
+        localStorage.removeItem(`foods-Finalizados-${safeUserName}`);
+        localStorage.removeItem(`exercises-Finalizados-${safeUserName}`);
+        window.location.reload();
     }
 
     return (
