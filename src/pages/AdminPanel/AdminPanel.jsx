@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import userServices from '../../services/apiUsers';
 import './AdminPanel.css';
 import AdminTable from '../../components/AdminTable/AdminTable';
+import CardUserAdmin from '../../components/CardUserAdmin/CardUserAdmin';
 
 const AdminPanel = () => {
   const { userName, userPhoto } = useAuth();
@@ -17,8 +18,7 @@ const AdminPanel = () => {
   const getUsersAdmin = async () => {
     try {
       const response = await userServices.adminGetUsers();
-      setUsers(response.data);
-      console.log('Usuarios:', response.data.users);
+      setUsers(response.data.users);
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
     }
@@ -79,7 +79,13 @@ const AdminPanel = () => {
               </tr>
             </thead>
             <tbody>
-
+              {getUsers.map((userAdmin, index) => (
+                <CardUserAdmin
+                  mail={userAdmin.mail}
+                  id={userAdmin._id}
+                  key={index}
+                />
+              ))}
             </tbody>
           </table>
 

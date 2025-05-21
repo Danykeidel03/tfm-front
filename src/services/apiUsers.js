@@ -25,6 +25,11 @@ const userServices = {
             { status: 'activate' },
             { headers: { 'Content-Type': 'application/json' } }
         ),
+    updateUser: (idUser, objUser) =>
+        api.put(`/food/user/${idUser}`,
+            objUser,
+            { headers: { 'Content-Type': 'application/json' } }
+        ),
 }
 
 export default userServices;
