@@ -38,8 +38,10 @@ const Register = () => {
         try {
             let imageUrl = '';
 
-            if (dataRegisterUser.file && dataRegisterUser.file[0]) {
-                imageUrl = await uploadToCloudinary(dataRegisterUser.file[0], 'exercises');
+            console.log(dataRegisterUser);
+
+            if (dataRegisterUser.file) {
+                imageUrl = await uploadToCloudinary(dataRegisterUser.file, 'users');
             }
 
             const formData = new FormData();

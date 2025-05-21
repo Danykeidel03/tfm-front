@@ -45,7 +45,7 @@ const CardObj = ({
         window.location.reload()
     };
 
-     const endExercise = () => {
+    const endExercise = () => {
         if (!userName) {
             alert("No hay usuario en sesión");
             return;
@@ -77,7 +77,13 @@ const CardObj = ({
     return (
         <div className='divAddObj'>
             <div className='divPhotoObj'>
-                <img src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
+                {photoLink.startsWith('https') ? (
+                    <>
+                        <img className='img' alt={`${type}-object`} src={photoLink} />
+                    </>
+                ) : (
+                    <img src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
+                )}
             </div>
             <div className='divContentObj'>
                 <span className='nameObj'>{nameObj}</span>

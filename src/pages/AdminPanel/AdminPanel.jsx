@@ -61,9 +61,9 @@ const AdminPanel = () => {
             </div>
           </div>
           <ul>
-            <li className="userList" onClick={() => { setUserListActived(!isUserListActived); setFoodListActived(false); setExerciseActived(false); }}> <p>Usuarios</p> </li>
-            <li className="approveExercises" onClick={() => { setExerciseActived(!isExerciseActived); setFoodListActived(false); setUserListActived(false) }}><p>Ejercicios</p></li>
-            <li className="approveFood" onClick={() => { setFoodListActived(!isFoodListActived); setExerciseActived(false); setUserListActived(false) }}><p>Comida</p></li>
+            <li onClick={() => !isUserListActived && (setUserListActived(true), setExerciseActived(false), setFoodListActived(false))}><p>Usuarios</p></li>
+            <li onClick={() => !isExerciseActived && (setExerciseActived(true), setUserListActived(false), setFoodListActived(false))}><p>Ejercicios</p></li>
+            <li onClick={() => !isFoodListActived && (setFoodListActived(true), setUserListActived(false), setExerciseActived(false))}><p>Comida</p></li>
           </ul>
         </div>
       </div>

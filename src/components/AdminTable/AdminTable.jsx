@@ -24,7 +24,13 @@ const AdminTable = ({
         <>
             <tr className={`${type}Row`}>
                 <td className={`${type}Td`}>
-                    <img className='img' alt={`${type}-image`} src={photo} />
+                    {photo.startsWith('https') ? (
+                        <>
+                            <img className='img' alt={`${type}-image`} src={photo} />
+                        </>
+                    ) : (
+                        <img className='img' alt={`${type}-image`} src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photo}`} />
+                    )}
                 </td>
                 <td className={`${type}Td`}>
                     {name}
@@ -32,7 +38,7 @@ const AdminTable = ({
                 <td className={`${type}Td`}>
                     {calories}
                 </td>
-                <td className={`approve${(type)}Button`} onClick={ () => changeStatus(id.replace(/^id-/, ''), type)}>
+                <td className={`approve${(type)}Button`} onClick={() => changeStatus(id.replace(/^id-/, ''), type)}>
                     Aprobar
                 </td>
             </tr>
