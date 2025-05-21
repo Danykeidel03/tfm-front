@@ -47,7 +47,7 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <Router basename="/tfm-front">
+      <Router>
         <AppContent />
       </Router>
     </AuthProvider>
