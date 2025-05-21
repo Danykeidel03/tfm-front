@@ -1,10 +1,10 @@
 html .main-content:has(.menu-contentAdmin) {
-    max-width: 100%;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    top: 0;
-    padding-bottom: 0;
+  max-width: 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 0;
+  padding-bottom: 0;
 }
 
 .main-contentAdmin {
@@ -12,10 +12,10 @@ html .main-content:has(.menu-contentAdmin) {
 }
 
 .menu-contentAdmin {
-    width: 200px;
-    height: 100%;
-    padding: 0 12px 0 12px;
-    background-color: #e8e8e8;
+  width: 200px;
+  height: 100%;
+  padding: 0 12px 0 12px;
+  background-color: #e8e8e8;
 }
 
 body,
@@ -42,6 +42,15 @@ div,
 span,
 li {
   font-family: sans-serif;
+}
+
+html:has(.menu-contentAdmin),
+body:has(.menu-contentAdmin),
+main:has(.menu-contentAdmin),
+#root:has(.menu-contentAdmin),
+.main-content:has(.menu-contentAdmin),
+.app:has(.menu-contentAdmin) {
+  height: 100%;
 }
 
 main {
@@ -431,17 +440,17 @@ main {
     width: 100%;
   }
 
-  .optionsMenu ul{
+  .optionsMenu ul {
     flex-direction: row;
     gap: 50px;
     margin: 0;
   }
 
-  .optionsMenu ul li p{
+  .optionsMenu ul li p {
     margin-top: 14px;
   }
 
-  .main-content{
+  .main-content {
     width: 100%;
     justify-content: center;
   }
