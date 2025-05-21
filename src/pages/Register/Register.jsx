@@ -38,8 +38,6 @@ const Register = () => {
         try {
             let imageUrl = '';
 
-            console.log(dataRegisterUser);
-
             if (dataRegisterUser.file) {
                 imageUrl = await uploadToCloudinary(dataRegisterUser.file, 'users');
             }
