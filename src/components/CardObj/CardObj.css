@@ -57,3 +57,8 @@
 .addButton:hover{
   cursor: pointer;
 }
+
+
+.divPhotoObj img {
+  max-width: 150px;
+}
