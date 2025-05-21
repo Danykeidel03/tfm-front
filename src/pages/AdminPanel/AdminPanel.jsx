@@ -19,6 +19,7 @@ const AdminPanel = () => {
     try {
       const response = await userServices.adminGetUsers();
       setUsers(response.data.users);
+      console.log(response.data.users);
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
     }
@@ -82,7 +83,7 @@ const AdminPanel = () => {
               {getUsers.map((userAdmin, index) => (
                 <CardUserAdmin
                   mail={userAdmin.mail}
-                  id={userAdmin._id}
+                  idUser={userAdmin._id}
                   key={index}
                 />
               ))}

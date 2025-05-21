@@ -26,10 +26,11 @@ const userServices = {
             { headers: { 'Content-Type': 'application/json' } }
         ),
     updateUser: (idUser, objUser) =>
-        api.put(`/food/user/${idUser}`,
+        api.put(`/user/${idUser}`,
             objUser,
             { headers: { 'Content-Type': 'application/json' } }
         ),
+    deleteUser: (idUser) => api.delete(`/user/${idUser}`, { headers: { 'Content-Type': 'multipart/form-data' } }),
 }
 
 export default userServices;

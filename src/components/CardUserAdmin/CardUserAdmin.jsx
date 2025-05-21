@@ -39,8 +39,17 @@ const CardUserAdmin = ({
         try {
             console.log(idUser);
             await userServices.updateUser(idUser, objUser);
-            alert('Usuario actualizado correctamente');
-            toggleModalAddEdit(); // Cierra el modal
+            window.location.reload()
+        } catch (error) {
+            console.error('Error actualizando el usuario:', error);
+            alert('Error al actualizar el usuario.');
+        }
+    };
+
+    const deleteUserFunction = async () => {
+        try {
+            await userServices.deleteUser(idUser);
+            window.location.reload()
         } catch (error) {
             console.error('Error actualizando el usuario:', error);
             alert('Error al actualizar el usuario.');
@@ -53,7 +62,7 @@ const CardUserAdmin = ({
             <tr className='userTd'>
                 <td className='userTd'>{mail}</td>
                 <td className="editUser" onClick={toggleModalAddEdit}></td>
-                <td className="deleteUser"></td>
+                <td className="deleteUser" onClick={deleteUserFunction}></td>
                 <td>
                     <Modal isActive={isModalEditOpen} onClose={toggleModalAddEdit}>
                         <h3>Campos a editar</h3>
