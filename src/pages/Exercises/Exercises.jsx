@@ -16,7 +16,12 @@ const Exercises = () => {
 
     useEffect(() => {
         if (!userName) {
-            alert("No hay usuario en sesión");
+            Swal.fire({
+                title: 'Error',
+                text: 'Debes Iniciar Sesion',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
             return;
         }
 

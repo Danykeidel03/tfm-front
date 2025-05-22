@@ -1,6 +1,7 @@
 import React from 'react';
 import './CardObj.css';
 import { useAuth } from '../../context/AuthContext';
+import Swal from 'sweetalert2';
 
 const CardObj = ({
     nameObj,
@@ -18,7 +19,12 @@ const CardObj = ({
     const addItemStorage = () => {
         let arrayObjItems = [];
         if (!userName) {
-            alert("No hay usuario en sesión");
+            Swal.fire({
+                title: 'Error',
+                text: 'Debes Iniciar Sesion',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
             return;
         }
 
@@ -48,7 +54,12 @@ const CardObj = ({
 
     const endExercise = () => {
         if (!userName) {
-            alert("No hay usuario en sesión");
+            Swal.fire({
+                title: 'Error',
+                text: 'Debes Iniciar Sesion',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
             return;
         }
 

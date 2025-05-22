@@ -12,6 +12,8 @@ import Modal from '../Modal/Modal';
 import CardObj from '../CardObj/CardObj';
 import { useAuth } from '../../context/AuthContext';
 import Swal from 'sweetalert2';
+import { ClipLoader } from 'react-spinners';
+
 
 const Header = () => {
 
@@ -24,6 +26,7 @@ const Header = () => {
   const [foodList, setFoodsList] = useState([]);
   const { userName, userPhoto, setUserName, setUserPhoto, logout } = useAuth();
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
   const toggleModalExercises = () => setModalExercisesActive(!isModalExercisesOpen);
@@ -31,11 +34,14 @@ const Header = () => {
   const toggleModalFoods = async () => {
     setModalFoodsActive(!isModalFoodsOpen);
     try {
+      setLoading(true)
       const response = await objServices.getFoods();
       const foods = response.data.food;
       setFoodsList(foods);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -78,6 +84,7 @@ const Header = () => {
 
   const onLoginSubmit = async (dataLoginUser) => {
     try {
+      setLoading(true)
       const datosLogin = await userServices.getLogin(dataLoginUser);
 
       const nameUser = datosLogin.data.user;
@@ -100,6 +107,8 @@ const Header = () => {
           confirmButtonText: 'Aceptar'
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,6 +133,7 @@ const Header = () => {
 
   const onExerciseSubmit = async (dataExercise) => {
     try {
+      setLoading(true)
       let imageUrl = '';
 
       if (dataExercise.urlEjercicio && dataExercise.urlEjercicio[0]) {
@@ -156,11 +166,14 @@ const Header = () => {
         icon: 'error',
         confirmButtonText: 'Aceptar'
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const onFoodSubmit = async (dataFood) => {
     try {
+      setLoading(true)
       let imageUrl = '';
 
       if (dataFood.photoFood && dataFood.photoFood[0]) {
@@ -192,22 +205,32 @@ const Header = () => {
         icon: 'error',
         confirmButtonText: 'Aceptar'
       });
+    } finally {
+      setLoading(false);
     }
   };
 
 
   const getExercises = async (muscle) => {
     try {
+      setLoading(true)
       const response = await objServices.getExercises(muscle);
       const exercise = response.data.muscles;
       setExerciseList(exercise);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div className="header">
+      {loading && (
+        <div className='spinerLoading'>
+          <ClipLoader color="#36d7b7" size={50} />
+        </div>
+      )}
       <div className="header__logo-container">
         <Link className="urlRegister" to="/">
           <img

@@ -72,6 +72,18 @@ textarea {
   height: 100%;
 }
 
+.spinerLoading {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(51, 51, 51, 0.55);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 900px) {
   .main-content h1 {
     font-size: 36px;
