@@ -10,6 +10,7 @@ const CardObj = ({
     photoLink,
     calories,
     button,
+    date,
     children
 }) => {
     const { userName } = useAuth();
@@ -75,25 +76,42 @@ const CardObj = ({
     };
 
     return (
-        <div className='divAddObj'>
-            <div className='divPhotoObj'>
-                {photoLink.startsWith('https') ? (
-                    <>
-                        <img className='img' alt={`${type}-object`} src={photoLink} />
-                    </>
-                ) : (
-                    <img src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
-                )}
-            </div>
-            <div className='divContentObj'>
-                <span className='nameObj'>{nameObj}</span>
-                <div className='nameInstructions'>
-                    {button ? descriptionObj : `${calories} Cal`}
-                    {button ? <button id={idObj} className='addButton' onClick={addItemStorage}>+</button> : <button id={idObj} className='addButton' onClick={endExercise}>Finalizar</button>}
-                </div>
-            </div>
+        <>
+            {type === 'calories' ? (
+                <>
+                    <div className='divCalories'>
+                        <div className='dateCalories'>{date.split('T')[0]}</div>
+                        <div className='divContentObj'>
+                            <div className='nameInstructions'>
+                                {button ? descriptionObj : `${calories} Calorias`}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className='divAddObj'>
+                        <div className='divPhotoObj'>
+                            {photoLink.startsWith('https') ? (
+                                <>
+                                    <img className='img' alt={`${type}-object`} src={photoLink} />
+                                </>
+                            ) : (
+                                <img src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
+                            )}
+                        </div>
+                        <div className='divContentObj'>
+                            <span className='nameObj'>{nameObj}</span>
+                            <div className='nameInstructions'>
+                                {button ? descriptionObj : `${calories} Cal`}
+                                {button ? <button id={idObj} className='addButton' onClick={addItemStorage}>+</button> : <button id={idObj} className='addButton' onClick={endExercise}>Finalizar</button>}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
             {children}
-        </div>
+        </>
     );
 };
 

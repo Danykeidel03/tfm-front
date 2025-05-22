@@ -237,6 +237,13 @@ const Header = () => {
                 </Link>
               </p>
             </li>
+            <li className={`viewExercises ${userName && 'active'}`}>
+              <p>
+                <Link className="urlRegister" to="/calorias">
+                  Calorias
+                </Link>
+              </p>
+            </li>
             <li className="addTarea" onClick={toggleModalExercises}>
               <p>Añadir Tarea</p>
             </li>

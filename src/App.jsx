@@ -7,6 +7,7 @@ import Register from './pages/Register/Register';
 import Exercises from './pages/Exercises/Exercises';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Footer from './components/Footer/Footer';
+import Calories from './pages/Calories/Calories';
 import './App.css';
 
 function AppRoutes() {
@@ -21,6 +22,9 @@ function AppRoutes() {
 
       {userName && <Route path="/exercises" element={<Exercises />} />}
       {!userName && <Route path="/exercises" element={<Navigate to="/" replace />} />}
+
+      {userName && <Route path="/calorias" element={<Calories />} />}
+      {!userName && <Route path="/calorias" element={<Navigate to="/" replace />} />}
 
       {userName && <Route path="/panelAdmin" element={<AdminPanel />} />}
       {!userName && <Route path="/panelAdmin" element={<Navigate to="/" replace />} />}

@@ -13,6 +13,27 @@
   width: 100%;
 }
 
+h3,span,div{
+  color: black;
+}
+
+.divCalories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+  padding: 24px;
+}
+
+.divCalories .nameInstructions,
+.divCalories .dateCalories{
+  font-size: 24px;
+}
+
+.divGetEjercicios.calories{
+  margin-bottom: 40px;
+}
+
 .divAddObj,
 .divAddFood {
   display: flex;

@@ -13,7 +13,8 @@ const objServices = {
     getFoods: () => api.get(`/food`),
     newExercise: (userExerciseData) => api.post('/exercise', userExerciseData, { headers: { 'Content-Type': 'multipart/form-data' } }),
     newFood: (userFoodData) => api.post('/food', userFoodData, { headers: { 'Content-Type': 'multipart/form-data' } }),
-    endRoutine: (calories) => api.post('/calories', calories)
+    endRoutine: (calories) => api.post('/calories', calories),
+    getCalories: () => api.get(`/calories`),
 }
 
 export default objServices;
