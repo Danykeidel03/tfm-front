@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
 import Exercises from './pages/Exercises/Exercises';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 function AppRoutes() {
@@ -36,6 +37,7 @@ function AppContent() {
   return (
     <>
       {!isAdminPanel && <Header />}
+      {!isAdminPanel && <Footer />}
       {!isAdminPanel && userName && <Chat />}
       <div className="main-content">
         <AppRoutes />

@@ -9,7 +9,8 @@ main,
   background-color: #F3EEEA;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column-reverse;
 }
 
 p,
@@ -22,7 +23,6 @@ div,
 span,
 li {
   font-family: sans-serif;
-  color: black;
 }
 
 #root {
@@ -33,11 +33,10 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   gap: 30px;
-  max-width: 90%;
   position: relative;
   margin-top: 103px;
-  padding-bottom: 40px;
 }
 
 button {
@@ -64,22 +63,22 @@ textarea {
 }
 
 .main-content h1 {
-    margin: 20px;
-    text-align: center;
+  margin: 20px;
+  text-align: center;
 }
 
-#root{
+#root {
   height: 100%;
 }
 
-@media (max-width: 900px){
-    .main-content h1{
-        font-size: 36px;
-    }
+@media (max-width: 900px) {
+  .main-content h1 {
+    font-size: 36px;
+  }
 }
 
-@media (max-width: 650px){
-    .main-content h1{
-        font-size: 24px;
-    }
+@media (max-width: 650px) {
+  .main-content h1 {
+    font-size: 24px;
+  }
 }

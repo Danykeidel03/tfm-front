@@ -41,6 +41,7 @@
 
 .divLoginForm.active h3 {
   text-align: center;
+  color: black;
 }
 
 .divLoginForm.active .formLogin form,
@@ -62,7 +63,7 @@
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("../logoLogin.png");
+  background-image: url("../point.png");
   background-size: cover;
   background-repeat: no-repeat;
   left: 15px;
@@ -73,6 +74,7 @@
   border-radius: 100%;
   width: 75px;
   height: auto;
+  border: 2px solid white;
 }
 
 header {
@@ -104,7 +106,7 @@ header {
 }
 
 .header {
-  background-color: #e8e8e8;
+  background-color: black;
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -133,7 +135,7 @@ header {
 .menu-content.active {
   width: 200px;
   height: calc(100% - 123px);
-  background-color: #e8e8e8;
+  background-color: black;
   position: fixed;
   top: 99px;
   left: 0;
@@ -204,7 +206,7 @@ header {
 .divGestionarTareas ul li a {
   display: flex;
   align-items: center;
-  color: black;
+  color: #F3EEEA;
 }
 
 .divGestionarTareas ul li:hover {
@@ -223,7 +225,7 @@ header {
   width: 17px;
   height: 17px;
   position: absolute;
-  background-image: url("../punto.png");
+  background-image: url("../white-point.png");
   background-size: cover;
   background-repeat: no-repeat;
 }

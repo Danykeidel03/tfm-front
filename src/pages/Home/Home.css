@@ -10,12 +10,133 @@
   align-items: center;
 }
 
-.textoHome{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 100px;
-    height: 100%;
+.textoHome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.videoHome video {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.whoDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  padding: 24px 0;
+  width: 100%;
+}
+
+.whoDiv p,
+.whoDiv h2,
+.beneficiosDiv div h2,
+.beneficiosDiv div li {
+  color: #F3EEEA;
+}
+
+.whoDiv h2 {
+  text-align: center;
+}
+
+.videoHome {
+  height: auto;
+}
+
+.beneficiosDiv {
+  width: calc(100% - 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin: 0 20px 40px 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.beneficiosDiv .cardCalorias,
+.beneficiosDiv .cardRutinas,
+.beneficiosDiv .cardMonitoreo {
+  background-color: black;
+  color: #F3EEEA;
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.beneficiosDiv ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.freeDiv img {
+  max-width: 100%;
+}
+
+.subDiv {
+  max-width: 1000px;
+}
+
+.freeDiv {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+.freeDiv img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.freeDiv h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 48px;
+}
+
+@media(max-width: 1205px) {
+  .beneficiosDiv {
+    flex-direction: column;
+    max-width: 70%;
+  }
+
+  .beneficiosDiv .cardCalorias,
+  .beneficiosDiv .cardRutinas,
+  .beneficiosDiv .cardMonitoreo {
     width: 100%;
+    max-width: 750px;
+  }
+
+  .beneficiosDiv div h2,
+  .beneficiosDiv div li {
+    text-align: center;
+  }
+}
+
+@media(max-width: 1000px) {
+  .subDiv {
+    padding: 0 40px;
+  }
+}
+
+@media(max-width: 480px){
+  .freeDiv h3{
+    font-size: 36px;
+  }
 }
