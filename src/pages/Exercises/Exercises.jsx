@@ -3,7 +3,7 @@ import './Exercises.css'
 import CardObj from '../../components/CardObj/CardObj';
 import { useAuth } from '../../context/AuthContext';
 import objServices from '../../services/apiObj';
-
+import Swal from 'sweetalert2';
 
 const Exercises = () => {
 
@@ -65,7 +65,14 @@ const Exercises = () => {
         objServices.endRoutine(formData);
         localStorage.removeItem(`foods-Finalizados-${safeUserName}`);
         localStorage.removeItem(`exercises-Finalizados-${safeUserName}`);
-        window.location.reload();
+        Swal.fire({
+            title: '¡Rutina finalizada!',
+            text: `Has quemado un total de ${finalCalories} calorías.`,
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        }).then(() => {
+            window.location.reload();
+        });
     }
 
     return (

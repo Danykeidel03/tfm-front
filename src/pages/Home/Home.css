@@ -39,7 +39,8 @@
 .whoDiv p,
 .whoDiv h2,
 .beneficiosDiv div h2,
-.beneficiosDiv div li {
+.beneficiosDiv div li,
+.freeDiv h3 {
   color: #F3EEEA;
 }
 

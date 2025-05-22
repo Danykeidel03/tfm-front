@@ -38,7 +38,7 @@ const Home = () => {
     return (
         <div className='textoHome'>
             <div className='videoHome'>
-                <video src='homeVideo.mp4' autoPlay muted loop></video>
+                <video src='homeVideo.mp4' autoPlay muted loop playsInline></video>
             </div>
             <div className='whoDiv'>
                 <h2>Quienes Somos</h2>

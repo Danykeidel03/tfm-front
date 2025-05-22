@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import CardObj from '../CardObj/CardObj';
 import { useAuth } from '../../context/AuthContext';
-import Success from '../Success/Success';
+import Swal from 'sweetalert2';
 
 const Header = () => {
 
@@ -77,12 +77,31 @@ const Header = () => {
   });
 
   const onLoginSubmit = async (dataLoginUser) => {
-    let datosLogin = await userServices.getLogin(dataLoginUser);
-    const nameUser = datosLogin.data.user;
-    const linkPhotoUser = datosLogin.data.photo;
-    setUserName(nameUser);
-    setUserPhoto(linkPhotoUser);
-  }
+    try {
+      const datosLogin = await userServices.getLogin(dataLoginUser);
+
+      const nameUser = datosLogin.data.user;
+      const linkPhotoUser = datosLogin.data.photo;
+      setUserName(nameUser);
+      setUserPhoto(linkPhotoUser);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        Swal.fire({
+          title: 'Error de autenticación',
+          text: 'El usuario no existe o la contraseña es incorrecta.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+      } else {
+        Swal.fire({
+          title: 'Error inesperado',
+          text: 'Ocurrió un error al intentar iniciar sesión. Intenta nuevamente.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    }
+  };
 
   const uploadToCloudinary = async (file, folder) => {
     const cloudName = 'dp5ykchgc';
@@ -119,13 +138,24 @@ const Header = () => {
       formData.append('calories', dataExercise.caloriesEjercicio);
 
       const response = await objServices.newExercise(formData);
-      console.log(response);
 
       if (response.status === 201) {
         setSuccessMessage('Ejercicio Añadido');
+        Swal.fire({
+          title: 'Añadido!',
+          text: successMessage,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
       }
     } catch (error) {
       console.error('Error al registrar el ejercicio:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Registro duplicado',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     }
   };
 
@@ -147,9 +177,21 @@ const Header = () => {
 
       if (response.status === 201) {
         setSuccessMessage('Comida Añadida');
+        Swal.fire({
+          title: 'Añadido!',
+          text: successMessage,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
       }
     } catch (error) {
       console.error('Error al registrar la comida:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Registro duplicado',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     }
   };
 
@@ -399,7 +441,6 @@ const Header = () => {
                 </form>
               </div>
             )}
-            {successMessage && <Success successMessage={successMessage} clearSuccess={() => setSuccessMessage('')} />}
           </div>
         </Modal>
       </div>

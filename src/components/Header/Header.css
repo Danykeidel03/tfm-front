@@ -161,6 +161,7 @@ header {
   border: 0;
   background-color: transparent;
   position: relative;
+  color: #F3EEEA;
 }
 
 .divLogout button.active::before {
@@ -281,6 +282,10 @@ html .opcionesDeComidas .divAddObj {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.bienvenidoUser span{
+    color: #F3EEEA;
 }
 
 .divUser.active {

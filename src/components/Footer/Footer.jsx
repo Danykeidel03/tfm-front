@@ -5,7 +5,7 @@ const Footer = () => {
         <footer className="footer">
             <div className="footer-container">
                 <div className="footer-section">
-                    <h4>TuAppDeEjercicio</h4>
+                    <h4>FitCount</h4>
                     <p>Tu compañero ideal para llevar una vida activa y saludable. Ejercicios, control de comidas y progreso en un solo lugar.</p>
                 </div>
                 <div className="footer-section">
@@ -29,7 +29,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>&copy; {new Date().getFullYear()} TuAppDeEjercicio. Todos los derechos reservados.</p>
+                <p>&copy; {new Date().getFullYear()} FitCount. Todos los derechos reservados.</p>
             </div>
         </footer>
     );

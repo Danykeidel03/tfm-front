@@ -79,6 +79,11 @@ h3,span,div{
   cursor: pointer;
 }
 
+.opcionesDeComidas .divContentObj{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
 
 .divPhotoObj img {
   max-width: 150px;

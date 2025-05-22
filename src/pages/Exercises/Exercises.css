@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    margin-bottom: 45px;
 }
 
 .divGetEjercicios,
@@ -95,7 +96,7 @@
         padding-left: 12px;
     }
 
-    .content-fitness .divContentObj{
+    .content-fitness .divContentObj {
         padding-right: 12px;
         padding-left: 12px;
     }

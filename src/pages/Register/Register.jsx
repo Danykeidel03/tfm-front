@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Register.css'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "./schemaValidations";
 import userServices from '../../services/apiUsers';
-import Error from '../../components/Error/Error';
-
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+
+    const navigate = useNavigate()
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -54,13 +56,34 @@ const Register = () => {
 
             let datosRegister = await userServices.registerUser(formData);
             console.log(datosRegister);
+
+            Swal.fire({
+                title: '¡Añadido!',
+                text: 'Usuario creado correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                navigate('/');
+            });
+
         } catch (error) {
-            if (error.response.data.code === 11000) {
+            if (error.response?.data?.code === 11000) {
                 console.log(error.response.data.message);
-                setErrorMessage(error.response.data.message)
+                setErrorMessage(error.response.data.message);
             }
         }
     };
+
+    useEffect(() => {
+        if (errorMessage) {
+            Swal.fire({
+                title: 'Error!',
+                text: errorMessage,
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    }, [errorMessage]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -125,8 +148,6 @@ const Register = () => {
                     <div className='divConfirm'>
                         <button className="btnRegister submit">Registrarme</button>
                     </div>
-                    {errorMessage && <Error errorMessage={errorMessage} clearError={() => setErrorMessage('')}
-                    />}
                 </div>
             </div>
         </form>

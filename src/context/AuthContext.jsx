@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const AuthContext = createContext();
 
@@ -19,10 +20,30 @@ export const AuthProvider = ({ children }) => {
   }, [userPhoto]);
 
   const logout = () => {
-    setUserName('');
-    setUserPhoto('');
-    sessionStorage.removeItem('userName');
-    sessionStorage.removeItem('userPhoto');
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUserName('');
+        setUserPhoto('');
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('userPhoto');
+
+        Swal.fire({
+          title: 'Sesión cerrada',
+          text: 'Has cerrado sesión correctamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+    });
   };
 
   return (
