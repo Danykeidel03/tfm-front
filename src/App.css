@@ -45,6 +45,7 @@ button {
   border-radius: 12px;
   background-color: #F3EEEA;
   margin-top: 10px;
+  color: black;
 }
 
 button:hover {

@@ -18,6 +18,10 @@
     gap: 5px;
 }
 
+h1, h2{
+    color: black;
+}
+
 .divPersonalInfo div,
 .divPass div {
     display: flex;

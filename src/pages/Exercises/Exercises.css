@@ -67,6 +67,7 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
+    color: black;
 }
 
 .nameInstructions .addButton {
