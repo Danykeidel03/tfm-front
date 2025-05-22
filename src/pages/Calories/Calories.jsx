@@ -2,18 +2,23 @@ import { useState, useEffect } from 'react';
 import '../Exercises/Exercises.css'
 import CardObj from '../../components/CardObj/CardObj';
 import objServices from '../../services/apiObj';
+import { ClipLoader } from 'react-spinners';
 
 
 const Calories = () => {
     const [calories, setSalories] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const getCalories = async () => {
         try {
+            setLoading(true)
             const response = await objServices.getCalories();
             console.log(response);
             setSalories(response.data)
         } catch (error) {
             console.error('Error al obtener usuarios:', error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -23,7 +28,12 @@ const Calories = () => {
 
     return (
         <>
-        <h1>Calorias Diarias</h1>
+            {loading && (
+                <div className='spinerLoading'>
+                    <ClipLoader color="#36d7b7" size={50} />
+                </div>
+            )}
+            <h1>Calorias Diarias</h1>
             <div className="divGetEjercicios calories">
                 {calories.length > 0 ? (
                     calories.map((calories, index) => (
