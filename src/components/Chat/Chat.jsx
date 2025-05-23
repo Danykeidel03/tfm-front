@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
-    const [isChatActived, setChatActived] = useState(false)
+    const [isChatActived, setChatActived] = useState(false);
     const ws = useRef(null);
     const divMessagesRef = useRef(null);
     const { userName } = useAuth();
@@ -13,12 +13,20 @@ const Chat = () => {
     const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
 
     useEffect(() => {
-        ws.current = new WebSocket('ws://localhost:3000');
+        const protocolo = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const hostname = window.location.hostname === 'localhost'
+            ? 'localhost:3000'
+            : 'tfm-back-lzqq.onrender.com';
 
-        ws.current.addEventListener('message', (event) => {
+        ws.current = new WebSocket(`${protocolo}://${hostname}`);
+
+        ws.current.onopen = () => console.log('WebSocket conectado');
+        ws.current.onmessage = (event) => {
             const messageData = JSON.parse(event.data);
             setMessages(prev => [...prev, messageData]);
-        });
+        };
+        ws.current.onerror = (err) => console.error('WebSocket error:', err);
+        ws.current.onclose = () => console.log('WebSocket cerrado');
 
         return () => {
             ws.current?.close();
@@ -53,11 +61,11 @@ const Chat = () => {
     return (
         <div>
             <button className='activeChat' onClick={() => setChatActived(true)}>
-                <img src="infoLogo.png" alt="logo-request"/>
+                <img src="infoLogo.png" alt="logo-request" />
             </button>
             <div className={`divChatRequest ${isChatActived ? 'active' : ''}`}>
                 <div className="headerChat">
-                    <div className="modal-closeChat"  onClick={() => setChatActived(false)}>X</div>
+                    <div className="modal-closeChat" onClick={() => setChatActived(false)}>X</div>
                 </div>
                 <div className="chatDiv" ref={divMessagesRef}>
                     {messages.map((msg, index) => {
