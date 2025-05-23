@@ -89,6 +89,36 @@ h3,span,div{
   max-width: 150px;
 }
 
+.divCalories {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 150px;
+  justify-content: space-between;
+  min-width: 175px;
+}
+
+.dateCalories {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.nameInstructionsCalories {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+}
+
+.css-xsov46-MuiContainer-root{
+  min-height: 500px;
+}
+
 @media (max-width: 480px) {
   .contentModal {
     width: auto;

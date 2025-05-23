@@ -1,6 +1,7 @@
 import Modal from '../Modal/Modal'
 import React, { useState } from 'react';
 import userServices from '../../services/apiUsers';
+import Swal from 'sweetalert2';
 
 const CardUserAdmin = ({
     mail,
@@ -32,29 +33,70 @@ const CardUserAdmin = ({
         }
 
         if (Object.keys(objUser).length === 0) {
-            alert('No hay campos para actualizar.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos vacíos',
+                text: 'No hay campos para actualizar.',
+                confirmButtonText: 'Aceptar'
+            });
             return;
         }
 
         try {
             console.log(idUser);
             await userServices.updateUser(idUser, objUser);
-            window.location.reload()
+            Swal.fire({
+                icon: 'success',
+                title: 'Usuario actualizado',
+                text: 'Los datos del usuario se actualizaron correctamente.',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                window.location.reload();
+            });
         } catch (error) {
             console.error('Error actualizando el usuario:', error);
-            alert('Error al actualizar el usuario.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al actualizar el usuario.',
+                confirmButtonText: 'Aceptar'
+            });
         }
     };
 
     const deleteUserFunction = async () => {
-        try {
-            await userServices.deleteUser(idUser);
-            window.location.reload()
-        } catch (error) {
-            console.error('Error actualizando el usuario:', error);
-            alert('Error al actualizar el usuario.');
-        }
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción eliminará al usuario definitivamente.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await userServices.deleteUser(idUser);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Usuario eliminado',
+                        text: 'El usuario fue eliminado correctamente.',
+                        confirmButtonText: 'Aceptar'
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } catch (error) {
+                    console.error('Error eliminando el usuario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al eliminar el usuario.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            }
+        });
     };
+
 
     return (
         <>

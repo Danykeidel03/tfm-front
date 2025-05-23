@@ -93,7 +93,7 @@ const CardObj = ({
                     <div className='divCalories'>
                         <div className='dateCalories'>{date.split('T')[0]}</div>
                         <div className='divContentObj'>
-                            <div className='nameInstructions'>
+                            <div className='nameInstructionsCalories'>
                                 {button ? descriptionObj : `${calories} Calorias`}
                             </div>
                         </div>

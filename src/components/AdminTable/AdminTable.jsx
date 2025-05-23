@@ -1,6 +1,6 @@
 import React from 'react';
 import userServices from '../../services/apiUsers';
-
+import Swal from 'sweetalert2';
 
 const AdminTable = ({
     name,
@@ -12,12 +12,29 @@ const AdminTable = ({
 }) => {
 
     async function changeStatus(id, type) {
-        if (type === 'exercise') {
-            await userServices.updateStatusExercises(id)
-        } else if (type === 'food') {
-            await userServices.updateStatusFoods(id)
+        try {
+            if (type === 'exercise') {
+                await userServices.updateStatusExercises(id);
+            } else if (type === 'food') {
+                await userServices.updateStatusFoods(id);
+            }
+            Swal.fire({
+                icon: 'success',
+                title: 'Estado actualizado',
+                text: `El estado del ${type} ha sido actualizado correctamente.`,
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                window.location.reload();
+            });
+        } catch (error) {
+            console.error('Error actualizando estado:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo actualizar el estado. Inténtalo nuevamente.',
+                confirmButtonText: 'Aceptar'
+            });
         }
-        window.location.reload()
     }
 
     return (
