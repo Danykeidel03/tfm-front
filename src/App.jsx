@@ -8,6 +8,7 @@ import Exercises from './pages/Exercises/Exercises';
 import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Footer from './components/Footer/Footer';
 import Calories from './pages/Calories/Calories';
+import NotFound from './pages/NotFound/NotFound';
 import './App.css';
 
 function AppRoutes() {
@@ -28,6 +29,8 @@ function AppRoutes() {
 
       {userName && <Route path="/panelAdmin" element={<AdminPanel />} />}
       {!userName && <Route path="/panelAdmin" element={<Navigate to="/" replace />} />}
+
+      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }
