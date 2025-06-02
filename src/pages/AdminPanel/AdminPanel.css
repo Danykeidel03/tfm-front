@@ -13,7 +13,7 @@ td {
   max-width: 100px;
 }
 
-.inputsUser{
+.inputsUser {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,11 +22,11 @@ td {
   padding: 15px;
 }
 
-.contentModal{
+.contentModal {
   width: 500px;
 }
 
-.inputsUser input{
+.inputsUser input {
   width: 100%;
 }
 
@@ -79,16 +79,16 @@ td {
 }
 
 @media (max-width: 900px) {
-  .css-111x1iw-MuiContainer-root {
+  html .css-111x1iw-MuiContainer-root {
     justify-content: center;
     align-items: center;
   }
 
-  .css-1lhg08p {
+  html .css-1lhg08p {
     position: relative;
   }
 
-  .css-111x1iw-MuiContainer-root .MuiBox-root {
+  html .css-111x1iw-MuiContainer-root .MuiBox-root {
     width: 100%;
     max-width: 90%;
   }
@@ -124,5 +124,10 @@ td {
   .exerciseTd img,
   .foodTd img {
     max-width: 50px;
+  }
+
+  .MuiContainer-root.MuiContainer-maxWidthXl.css-bc1kej {
+    justify-content: center;
+    align-items: center;
   }
 }
