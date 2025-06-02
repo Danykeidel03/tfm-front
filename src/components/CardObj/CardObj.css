@@ -13,7 +13,9 @@
   width: 100%;
 }
 
-h3,span,div{
+h3,
+span,
+div {
   color: black;
 }
 
@@ -26,11 +28,11 @@ h3,span,div{
 }
 
 .divCalories .nameInstructions,
-.divCalories .dateCalories{
+.divCalories .dateCalories {
   font-size: 24px;
 }
 
-.divGetEjercicios.calories{
+.divGetEjercicios.calories {
   margin-bottom: 40px;
 }
 
@@ -79,7 +81,7 @@ h3,span,div{
   cursor: pointer;
 }
 
-.opcionesDeComidas .divContentObj{
+.opcionesDeComidas .divContentObj {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -94,7 +96,7 @@ h3,span,div{
   border-radius: 8px;
   padding: 16px;
   background: #f9f9f9;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -115,7 +117,7 @@ h3,span,div{
   text-align: center;
 }
 
-.css-xsov46-MuiContainer-root{
+.css-xsov46-MuiContainer-root {
   min-height: 500px;
 }
 
@@ -136,5 +138,9 @@ h3,span,div{
 
   .nameInstructions .addButton {
     padding: 8px 16px 8px 16px;
+  }
+
+  .MuiGrid-root.MuiGrid-container.MuiGrid-direction-xs-row.MuiGrid-spacing-xs-3.css-177xvbk {
+    justify-content: center;
   }
 }

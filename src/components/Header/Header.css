@@ -316,4 +316,12 @@ html .opcionesDeComidas .divAddObj {
   .bienvenidoUserPhoto {
     display: flex;
   }
+
+  .divUser.active{
+    gap: 5px;
+  }
+
+  .bienvenidoUser{
+    font-size: 11px;
+  }
 }
