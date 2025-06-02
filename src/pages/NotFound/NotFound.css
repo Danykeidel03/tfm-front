@@ -1,0 +1,9 @@
+@media (max-width: 510px) {
+    .main-content {
+        margin-top: 250px;
+    }
+
+    .min-h-screen.flex.items-center.justify-center.bg-gray-100.px-4.notFound {
+        max-width: 90%;
+    }
+}
