@@ -238,6 +238,7 @@ header {
   border-radius: 12px;
   background-color: #F3EEEA;
   color: black;
+  min-width: 75px;
 }
 
 .form-error {
