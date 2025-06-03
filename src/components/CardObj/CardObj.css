@@ -136,6 +136,10 @@ div {
     align-items: flex-start;
   }
 
+  html .divAddEjercicios .nameInstructions .addButton {
+    padding: 8px 32px 8px 32px;
+  }
+
   .nameInstructions .addButton {
     padding: 8px 16px 8px 16px;
   }

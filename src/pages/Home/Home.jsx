@@ -43,9 +43,8 @@ const Home = () => {
             <div className='whoDiv'>
                 <h2>Quienes Somos</h2>
                 <div className='subDiv'>
-                    <p>En Nombre de la Web creemos que llevar un estilo de vida saludable debe ser sencillo, accesible y motivador para todos. Por eso, hemos creado una plataforma integral donde no solo encuentras rutinas de ejercicios diseñadas para diferentes niveles y objetivos, sino también herramientas inteligentes para ayudarte a controlar tu alimentación y el consumo de calorías de forma fácil y práctica.</p>
-                    <p>Nuestro objetivo es acompañarte en cada paso de tu camino hacia una vida más activa y equilibrada. Aquí puedes registrar tus comidas diarias, conocer el aporte calórico de cada alimento y ajustar tus hábitos alimenticios para maximizar los resultados de tu entrenamiento. Todo esto en un solo lugar, pensado para que tu salud y bienestar sean prioridad sin complicaciones.</p>
-                    <p>Sabemos que cada persona es única, por eso nuestra plataforma se adapta a tus necesidades, ofreciéndote planes personalizados que combinan ejercicio y nutrición. Estamos comprometidos en brindarte la mejor experiencia para que puedas alcanzar tus metas con confianza y disfrutando el proceso.</p>
+                    <p>En FitCount creemos que llevar un estilo de vida saludable debe ser sencillo, accesible y motivador. Nuestra plataforma te ofrece rutinas de ejercicios adaptadas a tus objetivos y nivel, además de herramientas inteligentes para controlar tu alimentación y el consumo de calorías de forma práctica.</p>
+                    <p>FitCount se adapta a ti con planes personalizados que combinan ejercicio y nutrición. Registra tus comidas, conoce el valor calórico de cada alimento y mejora tus hábitos para alcanzar tus metas con confianza, todo en un solo lugar pensado para tu bienestar.</p>
                 </div>
             </div>
             <h2>Beneficios</h2>

@@ -13,6 +13,7 @@
   position: relative;
   right: 20px;
   z-index: 3;
+  width: 48px;
 }
 
 .divLoginForm.active {
@@ -72,7 +73,7 @@
 
 .header__logo {
   border-radius: 100%;
-  width: 75px;
+  width: 48px;
   height: auto;
   border: 2px solid white;
 }
@@ -134,10 +135,10 @@ header {
 
 .menu-content.active {
   width: 200px;
-  height: calc(100% - 123px);
+  height: calc(100% - 96px);
   background-color: black;
   position: fixed;
-  top: 99px;
+  top: 75px;
   left: 0;
   opacity: 1;
   padding: 12px;
@@ -250,6 +251,7 @@ header {
 
 .modal-wrapper {
   position: fixed;
+  z-index: 6;
 }
 
 .buttonsEjercicios {
