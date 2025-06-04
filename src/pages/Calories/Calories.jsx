@@ -11,16 +11,34 @@ const Calories = () => {
   const [loading, setLoading] = useState(false);
 
   const getCalories = async () => {
-    try {
-      setLoading(true);
-      const response = await objServices.getCalories();
-      setCalories(response.data);
-    } catch (error) {
-      console.error('Error al obtener usuarios:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    setLoading(true);
+    const response = await objServices.getCalories();
+    const data = response.data;
+
+    const grouped = data.reduce((acc, item) => {
+      const fecha = new Date(item.fechaCreacion).toISOString().split('T')[0];
+
+      if (!acc[fecha]) {
+        acc[fecha] = {
+          fechaCreacion: fecha,
+          calories: item.calories,
+          mailUser: item.mailUser,
+        };
+      } else {
+        acc[fecha].calories += item.calories;
+      }
+      return acc;
+    }, {});
+
+    const groupedArray = Object.values(grouped);
+    setCalories(groupedArray);
+  } catch (error) {
+    console.error('Error al obtener calories:', error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     getCalories();

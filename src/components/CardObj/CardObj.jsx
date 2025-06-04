@@ -2,6 +2,7 @@ import React from 'react';
 import './CardObj.css';
 import { useAuth } from '../../context/AuthContext';
 import Swal from 'sweetalert2';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const CardObj = ({
     nameObj,
@@ -15,42 +16,55 @@ const CardObj = ({
     children
 }) => {
     const { userName } = useAuth();
-
+    const navigate = useNavigate();
+    const location = useLocation();
     const addItemStorage = () => {
-        let arrayObjItems = [];
-        if (!userName) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Debes Iniciar Sesion',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-            return;
-        }
+    let arrayObjItems = [];
+    
+    if (!userName) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Debes Iniciar Sesion',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
 
-        const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
-        const storageKey = `${type}s-${safeUserName}`;
+    const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
+    const storageKey = `${type}s-${safeUserName}`;
 
-        if (localStorage.getItem(storageKey)) {
-            const storedItems = JSON.parse(localStorage.getItem(storageKey));
+    if (localStorage.getItem(storageKey)) {
+        const storedItems = JSON.parse(localStorage.getItem(storageKey));
+        
+        const alreadyExists = storedItems.some(item => item.nombre === nameObj);
+        if (!alreadyExists) {
             storedItems.push({
                 nombre: nameObj,
                 foto: photoLink,
                 calorias: calories,
             });
-            arrayObjItems = storedItems;
-            localStorage.removeItem(storageKey);
-        } else {
-            arrayObjItems = [{
-                nombre: nameObj,
-                foto: photoLink,
-                calorias: calories,
-            }];
         }
 
-        localStorage.setItem(storageKey, JSON.stringify(arrayObjItems));
-        window.location.reload()
-    };
+        arrayObjItems = storedItems;
+        localStorage.removeItem(storageKey);
+    } else {
+        arrayObjItems = [{
+            nombre: nameObj,
+            foto: photoLink,
+            calorias: calories,
+        }];
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(arrayObjItems));
+
+    if (location.pathname === '/exercises') {
+        window.location.reload();
+    } else {
+        navigate('/exercises');
+    }
+};
+
 
     const endExercise = () => {
         if (!userName) {

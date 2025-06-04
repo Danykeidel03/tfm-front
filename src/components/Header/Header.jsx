@@ -162,7 +162,7 @@ const Header = () => {
       console.error('Error al registrar el ejercicio:', error);
       Swal.fire({
         title: 'Error!',
-        text: 'Registro duplicado',
+        text: error.response.data.error,
         icon: 'error',
         confirmButtonText: 'Aceptar'
       });
@@ -201,7 +201,7 @@ const Header = () => {
       console.error('Error al registrar la comida:', error);
       Swal.fire({
         title: 'Error!',
-        text: 'Registro duplicado',
+        text: error.response.data.error,
         icon: 'error',
         confirmButtonText: 'Aceptar'
       });

@@ -75,3 +75,7 @@
 .divChatRequest button{
     margin: 10px 4px 10px 4px;
 }
+
+.modal-closeChat:hover{
+  cursor: pointer;
+}
