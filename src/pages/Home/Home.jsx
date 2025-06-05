@@ -46,6 +46,7 @@ const Home = () => {
                     <p>En FitCount creemos que llevar un estilo de vida saludable debe ser sencillo, accesible y motivador. Nuestra plataforma te ofrece rutinas de ejercicios adaptadas a tus objetivos y nivel, además de herramientas inteligentes para controlar tu alimentación y el consumo de calorías de forma práctica.</p>
                     <p>FitCount se adapta a ti con planes personalizados que combinan ejercicio y nutrición. Registra tus comidas, conoce el valor calórico de cada alimento y mejora tus hábitos para alcanzar tus metas con confianza, todo en un solo lugar pensado para tu bienestar.</p>
                 </div>
+                <button>Saber Mas</button>
             </div>
             <h2>Beneficios</h2>
             <div className='beneficiosDiv'>
@@ -60,7 +61,10 @@ const Home = () => {
             </div>
             <div className='freeDiv'>
                 <img src="free.jpg" alt="free image" />
-                <h3>1 Mes de Prueba</h3>
+                <div className='content'>
+                    <h3>1 Mes de Prueba Gratis</h3>
+                    <button>Comienza Tu Prueba</button>
+                </div>
             </div>
         </div>
     );

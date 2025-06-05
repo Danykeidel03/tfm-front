@@ -97,6 +97,10 @@ header {
   height: 32px;
 }
 
+.accordionMenu:hover{
+  cursor: pointer;
+}
+
 .header__logo-container {
   display: flex;
   justify-content: center;

@@ -68,3 +68,8 @@ body:has(.notFound) {
     height: 100%;
     margin: 0;
 }
+
+.footer-section .list{
+    display: flex;
+    gap: 20px;
+}

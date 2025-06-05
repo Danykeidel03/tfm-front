@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import userServices from '../../services/apiUsers';
 import objServices from '../../services/apiObj';
 import { useForm } from "react-hook-form";
@@ -7,7 +7,7 @@ import schema from "./schemaValidations";
 import schemaExercises from './schemaValidationsExercise'
 import schemaFood from './schemaValidationsFood';
 import './Header.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import CardObj from '../CardObj/CardObj';
 import { useAuth } from '../../context/AuthContext';
@@ -27,7 +27,12 @@ const Header = () => {
   const { userName, userPhoto, setUserName, setUserPhoto, logout } = useAuth();
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isLoginActive, setIsLoginActive] = useState(false);
+  const location = useLocation();
 
+  useEffect(() => {
+    setIsLoginActive(false);
+  }, [location.pathname]);
 
   const toggleModalExercises = () => setModalExercisesActive(!isModalExercisesOpen);
   const toggleModalAddCustom = () => { setModalAddOpen(!isModalAddOpen); setCustomModalType(null); };
@@ -48,8 +53,6 @@ const Header = () => {
   const openMenu = () => {
     setIsMenuActive(!isMenuActive)
   }
-
-  const [isLoginActive, setIsLoginActive] = useState(false);
 
   const openLogin = () => {
     setIsLoginActive(!isLoginActive)
