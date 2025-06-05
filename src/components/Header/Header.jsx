@@ -26,6 +26,8 @@ const Header = forwardRef((props, ref) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [isLoginActive, setIsLoginActive] = useState(false);
+  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [selectedFoods, setSelectedFoods] = useState([]);
   const location = useLocation();
 
   useImperativeHandle(ref, () => ({
@@ -46,6 +48,7 @@ const Header = forwardRef((props, ref) => {
       }
     }
   }));
+
   useEffect(() => {
     setIsLoginActive(false);
   }, [location.pathname]);
@@ -99,6 +102,76 @@ const Header = forwardRef((props, ref) => {
   } = useForm({
     resolver: yupResolver(schemaFood)
   });
+
+  const handleSelectExercise = (id) => {
+    setSelectedExercises(prev =>
+      prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]
+    );
+  };
+
+  const handleSelectFood = (id) => {
+    setSelectedFoods(prev =>
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    );
+  };
+
+  const addSelectedExercises = () => {
+    if (!userName) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes Iniciar Sesion',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+    const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
+    const storageKey = `exercises-${safeUserName}`;
+    let stored = JSON.parse(localStorage.getItem(storageKey)) || [];
+    const toAdd = exerciseList.filter(e => selectedExercises.includes(e._id));
+    toAdd.forEach(e => {
+      if (!stored.some(item => item.nombre === e.name)) {
+        stored.push({
+          nombre: e.name,
+          foto: e.photoName,
+          calorias: e.calories,
+        });
+      }
+    });
+    localStorage.setItem(storageKey, JSON.stringify(stored));
+    setSelectedExercises([]);
+    setModalExercisesActive(false);
+    window.location.reload();
+  };
+
+  const addSelectedFoods = () => {
+    if (!userName) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes Iniciar Sesion',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+    const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
+    const storageKey = `foods-${safeUserName}`;
+    let stored = JSON.parse(localStorage.getItem(storageKey)) || [];
+    const toAdd = foodList.filter(f => selectedFoods.includes(f._id));
+    toAdd.forEach(f => {
+      if (!stored.some(item => item.nombre === f.name)) {
+        stored.push({
+          nombre: f.name,
+          foto: f.photoName,
+          calorias: f.calories,
+        });
+      }
+    });
+    localStorage.setItem(storageKey, JSON.stringify(stored));
+    setSelectedFoods([]);
+    setModalFoodsActive(false);
+    window.location.reload();
+  };
 
   const onLoginSubmit = async (dataLoginUser) => {
     try {
@@ -364,20 +437,27 @@ const Header = forwardRef((props, ref) => {
             </div>
             <div className="divAddEjercicios">
               {exerciseList.map((exercise, index) => (
-                <CardObj
-                  photoLink={exercise.photoName}
-                  nameObj={exercise.name}
-                  descriptionObj={exercise.description}
-                  idObj={exercise._id}
-                  calories={exercise.calories}
-                  type='exercise'
-                  button={true}
-                  key={index}
-                />
+                <div key={exercise._id} className='exerciseCard'>
+                  <CardObj
+                    photoLink={exercise.photoName}
+                    nameObj={exercise.name}
+                    descriptionObj={exercise.description}
+                    idObj={exercise._id}
+                    calories={exercise.calories}
+                    type='exercise'
+                    button={true}
+                  />
+                   <input
+                    type="checkbox"
+                    checked={selectedExercises.includes(exercise._id)}
+                    onChange={() => handleSelectExercise(exercise._id)}
+                  />
+                </div>
               ))}
             </div>
             <div className='divCustom'>
               <button className='buttonAddCustomExercise' onClick={() => { setModalAddOpen(true); setCustomModalType('exercise') }}>Añadir Manual</button>
+              <button className="addSelectedBtn" onClick={addSelectedExercises} disabled={selectedExercises.length === 0}>Añadir </button>
             </div>
           </div>
         </Modal>
@@ -386,20 +466,27 @@ const Header = forwardRef((props, ref) => {
             <h2>Opciones</h2>
             <div className="divAddFoods">
               {foodList.map((food, index) => (
-                <CardObj
-                  photoLink={food.photoName}
-                  nameObj={food.name}
-                  descriptionObj={food.description}
-                  idObj={food._id}
-                  calories={food.calories}
-                  type='food'
-                  button={true}
-                  key={index}
-                />
+                <div key={food._id} className='foodCard'>
+                  <CardObj
+                    photoLink={food.photoName}
+                    nameObj={food.name}
+                    descriptionObj={food.description}
+                    idObj={food._id}
+                    calories={food.calories}
+                    type='food'
+                    button={false}
+                  />
+                  <input
+                    type="checkbox"
+                    checked={selectedFoods.includes(food._id)}
+                    onChange={() => handleSelectFood(food._id)}
+                  />
+                </div>
               ))}
             </div>
             <div className='divCustom'>
               <button className='buttonAddCustomFood' onClick={() => { setModalAddOpen(true); setCustomModalType('food') }}>Añadir Manual</button>
+              <button className="addSelectedBtn" onClick={addSelectedFoods} disabled={selectedFoods.length === 0}>Añadir </button>
             </div>
           </div>
         </Modal>

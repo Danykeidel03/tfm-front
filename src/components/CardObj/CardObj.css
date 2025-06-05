@@ -121,6 +121,10 @@ div {
   min-height: 500px;
 }
 
+.modalClass.active .nameInstructions button{
+  display: none;
+}
+
 @media (max-width: 480px) {
   .contentModal {
     width: auto;

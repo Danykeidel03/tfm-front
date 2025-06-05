@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .divLoginForm,
 .loginDiv {
   display: none;
@@ -139,7 +143,7 @@ header {
 
 .menu-content.active {
   width: 200px;
-  height: calc(100% - 96px);
+  height: 100%;
   background-color: black;
   position: fixed;
   top: 75px;
@@ -204,7 +208,7 @@ header {
   background-image: url("../logo.png");
   background-repeat: no-repeat;
   background-size: 500px;
-  background-position: 10px 300px;
+  background-position: 10px 250px;
 }
 
 .divGestionarTareas ul:first-child {
@@ -341,10 +345,47 @@ html .opcionesDeComidas .divAddObj {
 
 .divCustom {
   padding: 15px;
+  display: flex;
+  gap: 10px;
 }
 
 .divForm {
   gap: 10px;
+}
+
+.foodCard,
+.exerciseCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  width: 100%;
+  position: relative;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 20px;
+  border: 0.8px solid #ddd;
+}
+
+.foodCard input,
+.exerciseCard input {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  color: #333;
+  padding: 8px 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.divAddEjercicios,
+.divAddFoods {
+  gap: 15px;
 }
 
 @media(max-width: 800px) {
@@ -358,5 +399,19 @@ html .opcionesDeComidas .divAddObj {
 
   .bienvenidoUser {
     font-size: 11px;
+  }
+
+  .foodCard,
+  .exerciseCard {
+    flex-direction: row-reverse;
+    padding-left: 20px;
+    padding-right: 10px;
+  }
+
+  .foodCard input,
+  .exerciseCard input {
+    left: 5px;
+    right: 0;
+    width: 14px;
   }
 }

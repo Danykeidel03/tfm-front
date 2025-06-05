@@ -18,53 +18,51 @@ const CardObj = ({
     const { userName } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+
     const addItemStorage = () => {
-    let arrayObjItems = [];
-    
-    if (!userName) {
-        Swal.fire({
-            title: 'Error',
-            text: 'Debes Iniciar Sesion',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
-        });
-        return;
-    }
+        let arrayObjItems = [];
 
-    const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
-    const storageKey = `${type}s-${safeUserName}`;
+        if (!userName) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Debes Iniciar Sesion',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
 
-    if (localStorage.getItem(storageKey)) {
-        const storedItems = JSON.parse(localStorage.getItem(storageKey));
-        
-        const alreadyExists = storedItems.some(item => item.nombre === nameObj);
-        if (!alreadyExists) {
-            storedItems.push({
+        const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
+        const storageKey = `${type}s-${safeUserName}`;
+
+        if (localStorage.getItem(storageKey)) {
+            const storedItems = JSON.parse(localStorage.getItem(storageKey));
+            const alreadyExists = storedItems.some(item => item.nombre === nameObj);
+            if (!alreadyExists) {
+                storedItems.push({
+                    nombre: nameObj,
+                    foto: photoLink,
+                    calorias: calories,
+                });
+            }
+            arrayObjItems = storedItems;
+            localStorage.removeItem(storageKey);
+        } else {
+            arrayObjItems = [{
                 nombre: nameObj,
                 foto: photoLink,
                 calorias: calories,
-            });
+            }];
         }
 
-        arrayObjItems = storedItems;
-        localStorage.removeItem(storageKey);
-    } else {
-        arrayObjItems = [{
-            nombre: nameObj,
-            foto: photoLink,
-            calorias: calories,
-        }];
-    }
+        localStorage.setItem(storageKey, JSON.stringify(arrayObjItems));
 
-    localStorage.setItem(storageKey, JSON.stringify(arrayObjItems));
-
-    if (location.pathname === '/exercises') {
-        window.location.reload();
-    } else {
-        navigate('/exercises');
-    }
-};
-
+        if (location.pathname === '/exercises') {
+            window.location.reload();
+        } else {
+            navigate('/exercises');
+        }
+    };
 
     const endExercise = () => {
         if (!userName) {
@@ -105,7 +103,7 @@ const CardObj = ({
             {type === 'calories' ? (
                 <>
                     <div className='divCalories'>
-                        <div className='dateCalories'>{date.split('T')[0]}</div>
+                        <div className='dateCalories'>{date && date.split('T')[0]}</div>
                         <div className='divContentObj'>
                             <div className='nameInstructionsCalories'>
                                 {button ? descriptionObj : `${calories} Calorias`}
@@ -117,10 +115,8 @@ const CardObj = ({
                 <>
                     <div className='divAddObj'>
                         <div className='divPhotoObj'>
-                            {photoLink.startsWith('https') ? (
-                                <>
-                                    <img className='img' alt={`${type}-object`} src={photoLink} />
-                                </>
+                            {photoLink && photoLink.startsWith('https') ? (
+                                <img className='img' alt={`${type}-object`} src={photoLink} />
                             ) : (
                                 <img src={`https://res.cloudinary.com/dp5ykchgc/image/upload/v1747747884/photos/${type}s/${photoLink}`} alt="photo-object" className='imgPhotoObj' />
                             )}
