@@ -97,7 +97,7 @@ header {
   height: 32px;
 }
 
-.accordionMenu:hover{
+.accordionMenu:hover {
   cursor: pointer;
 }
 
@@ -155,6 +155,7 @@ header {
   display: flex;
   justify-content: center;
   padding: 20px;
+  margin-bottom: 150px;
 }
 
 .divLogout button {
@@ -186,6 +187,33 @@ header {
 
 .loginDiv.disabled {
   display: none;
+}
+
+.divGestionarTareas {
+  display: flex;
+  flex-direction: column;
+}
+
+.divGestionarTareas::before {
+  content: "";
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-image: url("../logo.png");
+  background-repeat: no-repeat;
+  background-size: 500px;
+  background-position: 10px 300px;
+}
+
+.divGestionarTareas ul:first-child {
+  border-bottom: 1px solid white;
+  padding-bottom: 15px;
+}
+
+.divGestionarTareas ul:last-child {
+  padding-top: 15px;
 }
 
 .divGestionarTareas ul {
@@ -291,8 +319,8 @@ html .opcionesDeComidas .divAddObj {
   align-items: center;
 }
 
-.bienvenidoUser span{
-    color: #F3EEEA;
+.bienvenidoUser span {
+  color: #F3EEEA;
 }
 
 .divUser.active {
@@ -324,11 +352,11 @@ html .opcionesDeComidas .divAddObj {
     display: flex;
   }
 
-  .divUser.active{
+  .divUser.active {
     gap: 5px;
   }
 
-  .bienvenidoUser{
+  .bienvenidoUser {
     font-size: 11px;
   }
 }

@@ -319,6 +319,17 @@ const Header = () => {
               <p>Añadir Comida</p>
             </li>
           </ul>
+          <ul>
+            <li>
+              <p>Tu Progreso</p>
+            </li>
+            <li>
+              <p>Contacto</p>
+            </li>
+            <li>
+              <p>Saber Mas</p>
+            </li>
+          </ul>
         </div>
         <div className="divLogout">
           <button className={`${userName && 'active'}`} onClick={logout}>Cerrar Sesión</button>
