@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import userServices from '../../services/apiUsers';
 import objServices from '../../services/apiObj';
 import { useForm } from "react-hook-form";
@@ -14,9 +14,7 @@ import { useAuth } from '../../context/AuthContext';
 import Swal from 'sweetalert2';
 import { ClipLoader } from 'react-spinners';
 
-
-const Header = () => {
-
+const Header = forwardRef((props, ref) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isModalExercisesOpen, setModalExercisesActive] = useState(false);
   const [isModalFoodsOpen, setModalFoodsActive] = useState(false);
@@ -30,6 +28,24 @@ const Header = () => {
   const [isLoginActive, setIsLoginActive] = useState(false);
   const location = useLocation();
 
+  useImperativeHandle(ref, () => ({
+    openAddExerciseModal: () => { setModalAddOpen(true); setCustomModalType('exercise'); },
+    openAddFoodModal: () => { setModalAddOpen(true); setCustomModalType('food'); },
+    openOpcionesEjercicios: () => setModalExercisesActive(true),
+    openOpcionesComidas: async () => {
+      setModalFoodsActive(true);
+      try {
+        setLoading(true);
+        const response = await objServices.getFoods();
+        const foods = response.data.food;
+        setFoodsList(foods);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }));
   useEffect(() => {
     setIsLoginActive(false);
   }, [location.pathname]);
@@ -74,7 +90,6 @@ const Header = () => {
   } = useForm({
     resolver: yupResolver(schemaExercises)
   });
-
 
   const {
     register: foodRegister,
@@ -212,7 +227,6 @@ const Header = () => {
       setLoading(false);
     }
   };
-
 
   const getExercises = async (muscle) => {
     try {
@@ -363,7 +377,7 @@ const Header = () => {
               ))}
             </div>
             <div className='divCustom'>
-              <button className='buttonAddCustomExercise' onClick={() => { toggleModalAddCustom(); setCustomModalType('exercise') }}>Añadir Manual</button>
+              <button className='buttonAddCustomExercise' onClick={() => { setModalAddOpen(true); setCustomModalType('exercise') }}>Añadir Manual</button>
             </div>
           </div>
         </Modal>
@@ -385,7 +399,7 @@ const Header = () => {
               ))}
             </div>
             <div className='divCustom'>
-              <button className='buttonAddCustomFood' onClick={() => { toggleModalAddCustom(); setCustomModalType('food') }}>Añadir Manual</button>
+              <button className='buttonAddCustomFood' onClick={() => { setModalAddOpen(true); setCustomModalType('food') }}>Añadir Manual</button>
             </div>
           </div>
         </Modal>
@@ -483,6 +497,6 @@ const Header = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Header;

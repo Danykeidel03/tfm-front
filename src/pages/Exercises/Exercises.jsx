@@ -5,14 +5,14 @@ import { useAuth } from '../../context/AuthContext';
 import objServices from '../../services/apiObj';
 import Swal from 'sweetalert2';
 
-const Exercises = () => {
-
+const Exercises = ({ headerRef }) => {
     const { userName } = useAuth();
     const [exercises, setExercises] = useState([]);
     const [foods, setFoods] = useState([]);
     const [exercisesEnded, setExercisesEnded] = useState([]);
     const [foodsEnded, setFoodsEnded] = useState([]);
-    const safeUserName = userName.toLowerCase().replace(/\s+/g, '_');
+
+    const safeUserName = userName ? userName.toLowerCase().replace(/\s+/g, '_') : '';
 
     useEffect(() => {
         if (!userName) {
@@ -26,33 +26,29 @@ const Exercises = () => {
         }
 
         const storageKeyExercise = `exercises-${safeUserName}`;
-
         const storedItemsExercises = localStorage.getItem(storageKeyExercise);
         if (storedItemsExercises) {
             setExercises(JSON.parse(storedItemsExercises));
         }
 
         const storageKeyFood = `foods-${safeUserName}`;
-
         const storedItemsFoods = localStorage.getItem(storageKeyFood);
         if (storedItemsFoods) {
             setFoods(JSON.parse(storedItemsFoods));
         }
 
         const storageKeyExerciseEnded = `exercises-Finalizados-${safeUserName}`;
-
         const storedItemsExercisesEnded = localStorage.getItem(storageKeyExerciseEnded);
         if (storedItemsExercisesEnded) {
             setExercisesEnded(JSON.parse(storedItemsExercisesEnded));
         }
 
         const storageKeyFoodEnded = `foods-Finalizados-${safeUserName}`;
-
         const storedItemsFoodsEnded = localStorage.getItem(storageKeyFoodEnded);
         if (storedItemsFoodsEnded) {
             setFoodsEnded(JSON.parse(storedItemsFoodsEnded));
         }
-    }, [userName]);
+    }, [userName, safeUserName]);
 
     function endRoutine() {
         let finalCalories = 0;
@@ -96,7 +92,10 @@ const Exercises = () => {
                         />
                     ))
                 ) : (
-                    <p>No hay ejercicios guardados.</p>
+                    <div className='empty'>
+                        <p>No hay ejercicios guardados.</p>
+                        <button onClick={() => headerRef.current?.openOpcionesEjercicios()}>Opciones Ejercicios</button>
+                    </div>
                 )}
             </div>
             <div className="divGetEjercicios">
@@ -112,7 +111,10 @@ const Exercises = () => {
                         />
                     ))
                 ) : (
-                    <p>No hay comidas guardadas.</p>
+                    <div className='empty'>
+                        <p>No hay ejercicios guardados.</p>
+                        <button onClick={() => headerRef.current?.openOpcionesComidas()}>Opciones Comidas</button>
+                    </div>
                 )}
             </div>
             <h1>Completado</h1>
@@ -153,4 +155,4 @@ const Exercises = () => {
     )
 }
 
-export default Exercises
+export default Exercises;

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { useRef } from 'react';
 import Header from './components/Header/Header';
 import Chat from './components/Chat/Chat';
 import Home from './pages/Home/Home';
@@ -10,8 +11,9 @@ import Footer from './components/Footer/Footer';
 import Calories from './pages/Calories/Calories';
 import NotFound from './pages/NotFound/NotFound';
 import './App.css';
+import { ModalProvider } from './context/ModalContext';
 
-function AppRoutes() {
+function AppRoutes({ headerRef }) {
   const { userName } = useAuth();
 
   return (
@@ -21,7 +23,7 @@ function AppRoutes() {
       {!userName && <Route path="/register" element={<Register />} />}
       {userName && <Route path="/register" element={<Navigate to="/" replace />} />}
 
-      {userName && <Route path="/exercises" element={<Exercises />} />}
+      {userName && <Route path="/exercises" element={<Exercises headerRef={headerRef} />} />}
       {!userName && <Route path="/exercises" element={<Navigate to="/" replace />} />}
 
       {userName && <Route path="/calorias" element={<Calories />} />}
@@ -38,16 +40,17 @@ function AppRoutes() {
 function AppContent() {
   const { userName } = useAuth();
   const location = useLocation();
+  const headerRef = useRef();
 
   const isAdminPanel = location.pathname === '/panelAdmin';
 
   return (
     <>
-      {!isAdminPanel && <Header />}
+      {!isAdminPanel && <Header ref={headerRef} />}
       {!isAdminPanel && <Footer />}
       {!isAdminPanel && userName && <Chat />}
       <div className="main-content">
-        <AppRoutes />
+        <AppRoutes headerRef={headerRef} />
       </div>
     </>
   );
@@ -57,7 +60,9 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <AppContent />
+        <ModalProvider>
+          <AppContent />
+        </ModalProvider>
       </Router>
     </AuthProvider>
   );
