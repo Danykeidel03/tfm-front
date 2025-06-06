@@ -41,6 +41,11 @@
     margin-top: 10px;
 }
 
+.content-fitness .divAddObj:last-child,
+.content-fitness .divAddFood:last-child{
+    margin-bottom: 10px;
+}
+
 .content-fitness .divContentObj {
     flex-direction: row;
     align-items: center;
@@ -116,7 +121,7 @@
         max-width: 90%;
     }
 
-    .divAddObj{
+    .modal-wrapper .divAddObj{
         flex-direction: column;
     }
 

@@ -75,6 +75,13 @@
   color: #F3EEEA;
   border-radius: 12px;
   padding: 36px;
+  min-height: 330px;
+}
+
+.beneficiosDiv .cardCalorias h2,
+.beneficiosDiv .cardRutinas h2,
+.beneficiosDiv .cardMonitoreo h2{
+  font-size: 20px;
 }
 
 .beneficiosDiv ul {
@@ -127,7 +134,7 @@
 @media(max-width: 1205px) {
   .beneficiosDiv {
     flex-direction: column;
-    max-width: 70%;
+    padding: 0;
   }
 
   .beneficiosDiv .cardCalorias,
