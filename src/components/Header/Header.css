@@ -344,8 +344,9 @@ html .opcionesDeComidas .divAddObj {
 }
 
 .divCustom {
-  padding: 15px;
+  padding: 12px;
   display: flex;
+  flex-direction: row-reverse;
   gap: 10px;
 }
 
