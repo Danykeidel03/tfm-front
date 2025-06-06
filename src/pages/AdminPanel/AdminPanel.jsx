@@ -1,5 +1,6 @@
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import userServices from '../../services/apiUsers';
 import './AdminPanel.css'
 
@@ -26,9 +27,9 @@ import AdminTable from '../../components/AdminTable/AdminTable';
 import CardUserAdmin from '../../components/CardUserAdmin/CardUserAdmin';
 
 const AdminPanel = () => {
-  const { userName, userPhoto } = useAuth();
+ const { userName, userPhoto } = useAuth();
+  const navigate = useNavigate();
 
-  // Tab control: 0=Usuarios, 1=Ejercicios, 2=Comidas
   const [tabValue, setTabValue] = useState(0);
   const [getUsers, setUsers] = useState([]);
   const [getExercisesNotAprobed, setExercisesNotAprobed] = useState([]);
@@ -50,12 +51,16 @@ const AdminPanel = () => {
         const foodsResp = await userServices.adminGetFoods();
         setFoodsNotAprobed(foodsResp.data.food);
       } catch (error) {
-        console.error('Error al obtener datos:', error);
+        if (error.response && error.response.status === 403) {
+          navigate('/'); // Redirige a la home si es 403
+        } else {
+          console.error('Error al obtener datos:', error);
+        }
       }
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
 
   return (
     <Container
