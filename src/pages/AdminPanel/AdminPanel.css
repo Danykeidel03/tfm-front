@@ -78,6 +78,10 @@ td {
   left: 44%;
 }
 
+.foodTd img{
+  max-width: 100px;
+}
+
 @media (max-width: 900px) {
   html .css-111x1iw-MuiContainer-root {
     justify-content: center;

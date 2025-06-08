@@ -70,7 +70,7 @@ div {
 }
 
 .addButton {
-  border: .8px solid #bbb;
+  border: 0.8px solid #bbb;
   background-color: #fff;
   margin: 0 15px;
   border-radius: 16px;
@@ -121,8 +121,12 @@ div {
   min-height: 500px;
 }
 
-.modalClass.active .nameInstructions button{
+.modalClass.active .nameInstructions button {
   display: none;
+}
+
+.MuiGrid-root.MuiGrid-container.MuiGrid-direction-xs-row.MuiGrid-spacing-xs-3.css-177xvbk {
+  justify-content: center;
 }
 
 @media (max-width: 480px) {
@@ -146,9 +150,5 @@ div {
 
   .nameInstructions .addButton {
     padding: 8px 16px 8px 16px;
-  }
-
-  .MuiGrid-root.MuiGrid-container.MuiGrid-direction-xs-row.MuiGrid-spacing-xs-3.css-177xvbk {
-    justify-content: center;
   }
 }

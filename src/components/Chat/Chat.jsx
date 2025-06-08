@@ -61,7 +61,7 @@ const Chat = () => {
     return (
         <div>
             <button className='activeChat' onClick={() => setChatActived(true)}>
-                <img src="infoLogo.png" alt="logo-request" />
+                <img src="chat.png" alt="logo-request" />
             </button>
             <div className={`divChatRequest ${isChatActived ? 'active' : ''}`}>
                 <div className="headerChat">

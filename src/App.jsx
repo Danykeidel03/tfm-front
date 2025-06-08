@@ -10,6 +10,9 @@ import AdminPanel from './pages/AdminPanel/AdminPanel';
 import Footer from './components/Footer/Footer';
 import Calories from './pages/Calories/Calories';
 import NotFound from './pages/NotFound/NotFound';
+import SaberMas from './pages/SaberMas/SaberMas';
+import Progress from './pages/Progress/Progress';
+import Contacto from './pages/Contacto/Contacto';
 import './App.css';
 import { ModalProvider } from './context/ModalContext';
 
@@ -20,11 +23,18 @@ function AppRoutes({ headerRef }) {
     <Routes>
       <Route path="/" element={<Home />} />
 
+      <Route path="/saberMas" element={<SaberMas />} />
+
+      <Route path="/contacto" element={<Contacto />} />
+
       {!userName && <Route path="/register" element={<Register />} />}
       {userName && <Route path="/register" element={<Navigate to="/" replace />} />}
 
       {userName && <Route path="/exercises" element={<Exercises headerRef={headerRef} />} />}
       {!userName && <Route path="/exercises" element={<Navigate to="/" replace />} />}
+
+      {userName && <Route path="/progress" element={<Progress headerRef={headerRef} />} />}
+      {!userName && <Route path="/progress" element={<Navigate to="/" replace />} />}
 
       {userName && <Route path="/calorias" element={<Calories />} />}
       {!userName && <Route path="/calorias" element={<Navigate to="/" replace />} />}

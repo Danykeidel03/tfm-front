@@ -357,7 +357,7 @@ const Header = forwardRef((props, ref) => {
           height="48px"
         />
         <div className={`divLoginForm${isLoginActive ? ' active' : ''}`}>
-          <h3>Logueate</h3>
+          <h3>Login</h3>
           <div className="formLogin">
             <form onSubmit={handleLoginSubmit(onLoginSubmit)}>
               <input
@@ -388,7 +388,7 @@ const Header = forwardRef((props, ref) => {
             <li className={`viewExercises ${userName && 'active'}`}>
               <p>
                 <Link className="urlRegister" to="/exercises">
-                  Ejercicios
+                  Add Work
                 </Link>
               </p>
             </li>
@@ -407,14 +407,26 @@ const Header = forwardRef((props, ref) => {
             </li>
           </ul>
           <ul>
-            <li>
-              <p>Tu Progreso</p>
+            <li className={`viewExercises ${userName && 'active'}`}>
+              <p>
+                <Link className="urlRegister" to="/progress">
+                  Tu Progreso
+                </Link>
+              </p>
             </li>
             <li>
-              <p>Contacto</p>
+              <p>
+                <Link className="urlRegister" to="/saberMas">
+                  Saber Mas
+                </Link>
+              </p>
             </li>
-            <li>
-              <p>Saber Mas</p>
+             <li>
+              <p>
+                <Link className="urlRegister" to="/contacto">
+                  Contacto
+                </Link>
+              </p>
             </li>
           </ul>
         </div>

@@ -1,81 +1,153 @@
-.divChatRequest{
+.divChatRequest {
   display: none;
 }
 
-.activeChat{
+.activeChat {
   display: flex;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
   flex-direction: column;
-  border-radius: 12px;
-  z-index: 2;
+  border-radius: 50%;
+  z-index: 100;
   border: none;
+  background: #0078d4;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  padding: 10px;
+  transition: background 0.2s;
 }
 
-.activeChat img{
-  width: 30px;
+.activeChat:hover {
+  background: #005fa3;
+}
+
+.activeChat img {
+  width: 32px;
+  height: 32px;
 }
 
 .divChatRequest.active {
   display: flex;
-  height: 300px;
-  width: 200px;
-  background-color: white;
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
   flex-direction: column;
-  border-radius: 12px;
-  z-index: 3;
+  height: 350px;
+  width: 260px;
+  background: #f9f9f9;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 16px;
+  z-index: 101;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
 }
 
 .headerChat {
-  padding: 8px;
+  padding: 10px 16px;
   display: flex;
   justify-content: flex-end;
-  background-color: #e8e8e8;
-  border-radius: 12px 12px 0 0;
-  height: 37px;
+  align-items: center;
+  background: #0078d4;
+  color: #fff;
+  border-radius: 16px 16px 0 0;
+  height: 44px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.modal-closeChat {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-closeChat:hover {
+  color: #ff5252;
 }
 
 .chatDiv {
-  height: calc(100% - 75px);
-  border-bottom: 1px solid #e8e8e8;
-  padding: 8px;
+  flex: 1;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow: auto;
+  overflow-y: auto;
+  background: #f4f8fb;
 }
 
 .buttonChat {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 8px;
+  background: #fff;
+  border-radius: 0 0 16px 16px;
 }
 
 .buttonChat input {
-  width: 65%;
-  margin: 10px 4px 10px 4px;
-  padding: 12px;
+  width: 70%;
+  margin-right: 6px;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
 }
 
-.chatDiv .message.sent {
-  font-size: 12px;
+.buttonChat input:focus {
+  border: 1.5px solid #0078d4;
 }
 
-.chatDiv .message.sent p {
-  margin: 0;
-}
-
-.chatDiv .message-received {
-  text-align: end;
-}
-.divChatRequest button{
-    margin: 10px 4px 10px 4px;
-}
-
-.modal-closeChat:hover{
+.buttonChat button {
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
   cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0;
+}
+
+.buttonChat button:hover {
+  background: #005fa3;
+}
+
+.message-sent {
+  align-self: flex-end;
+  background: #0078d4;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 16px 16px 4px 16px;
+  max-width: 80%;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,120,212,0.08);
+  word-break: break-word;
+}
+
+.message-received {
+  align-self: flex-start;
+  background: #e3eaf2;
+  color: #222;
+  padding: 8px 14px;
+  border-radius: 16px 16px 16px 4px;
+  max-width: 80%;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .divChatRequest.active {
+    width: 98vw;
+    right: 1vw;
+    bottom: 1vw;
+    height: 60vh;
+    min-width: unset;
+    max-width: unset;
+  }
 }

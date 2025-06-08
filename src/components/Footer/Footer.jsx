@@ -12,11 +12,7 @@ const Footer = () => {
                     <h4>Enlaces Rápidos</h4>
                     <div className='list'>
                         <ul>
-                            <li><a href="/ejercicios">Ejercicios</a></li>
-                            <li><a href="/comidas">Comidas</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="/progreso">Tu Progreso</a></li>
+                            <li><a href="/saberMas">Saber Mas</a></li>
                             <li><a href="/contacto">Contacto</a></li>
                         </ul>
                     </div>

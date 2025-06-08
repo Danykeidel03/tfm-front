@@ -207,8 +207,8 @@ header {
   left: 0;
   background-image: url("../logo.png");
   background-repeat: no-repeat;
-  background-size: 500px;
-  background-position: 10px 250px;
+  background-size: 300px;
+  background-position: 100px 300px;
 }
 
 .divGestionarTareas ul:first-child {
@@ -224,21 +224,12 @@ header {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 25px;
   padding-left: 10px;
   margin: 0;
   position: relative;
 }
 
-.divGestionarTareas ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding-left: 10px;
-  margin: 0;
-  position: relative;
-}
 
 .divGestionarTareas ul li,
 .divGestionarTareas ul li a {

@@ -1,11 +1,12 @@
+import React from "react";
+import "../Exercises/Exercises.css";
 import { useState, useEffect } from "react";
-import "./Exercises.css";
 import CardObj from "../../components/CardObj/CardObj";
 import { useAuth } from "../../context/AuthContext";
 import objServices from "../../services/apiObj";
 import Swal from "sweetalert2";
 
-const Exercises = ({ headerRef }) => {
+const Progress = () => {
   const { userName } = useAuth();
   const [exercises, setExercises] = useState([]);
   const [foods, setFoods] = useState([]);
@@ -54,13 +55,44 @@ const Exercises = ({ headerRef }) => {
     }
   }, [userName, safeUserName]);
 
+  function endRoutine() {
+    let finalCalories = 0;
+    const keyFinalizadosFods =
+      JSON.parse(localStorage.getItem(`foods-Finalizados-${safeUserName}`)) ||
+      [];
+    const keyFinalizadosExercises =
+      JSON.parse(
+        localStorage.getItem(`exercises-Finalizados-${safeUserName}`)
+      ) || [];
+
+    keyFinalizadosExercises.forEach((exercise) => {
+      finalCalories += exercise.calorias;
+    });
+    keyFinalizadosFods.forEach((food) => {
+      finalCalories += food.calorias;
+    });
+    const formData = new FormData();
+    formData.append("calories", finalCalories);
+    objServices.endRoutine(formData);
+    localStorage.removeItem(`foods-Finalizados-${safeUserName}`);
+    localStorage.removeItem(`exercises-Finalizados-${safeUserName}`);
+    Swal.fire({
+      title: "¡Rutina finalizada!",
+      text: `Has quemado un total de ${finalCalories} calorías.`,
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      window.location.reload();
+    });
+  }
+
   return (
     <div className="content-fitness">
-      <h1>Fitness</h1>
-      <div className="divGetEjercicios">
+      <h1>Tu Progreso</h1>
+      <div className="divGetEjerciciosEnded">
         <h3>Ejercicios</h3>
-        {exercises.length > 0 ? (
-          exercises.map((exercise, index) => (
+        {exercisesEnded.length > 0 ? (
+          exercisesEnded.map((exercise, index) => (
             <CardObj
               photoLink={exercise.foto}
               nameObj={exercise.nombre}
@@ -70,18 +102,13 @@ const Exercises = ({ headerRef }) => {
             />
           ))
         ) : (
-          <div className="empty">
-            <p>No hay ejercicios guardados.</p>
-            <button onClick={() => headerRef.current?.openOpcionesEjercicios()}>
-              Opciones Ejercicios
-            </button>
-          </div>
+          <p>No hay ejercicios completados.</p>
         )}
       </div>
-      <div className="divGetEjercicios">
+      <div className="divGetEjerciciosEnded">
         <h3>Comidas</h3>
-        {foods.length > 0 ? (
-          foods.map((exercise, index) => (
+        {foodsEnded.length > 0 ? (
+          foodsEnded.map((exercise, index) => (
             <CardObj
               photoLink={exercise.foto}
               nameObj={exercise.nombre}
@@ -91,16 +118,14 @@ const Exercises = ({ headerRef }) => {
             />
           ))
         ) : (
-          <div className="empty">
-            <p>No hay ejercicios guardados.</p>
-            <button onClick={() => headerRef.current?.openOpcionesComidas()}>
-              Opciones Comidas
-            </button>
-          </div>
+          <p>No hay comidas completados.</p>
         )}
       </div>
+      <button className="finalizarRutina" onClick={endRoutine}>
+        Finalizar Rutina
+      </button>
     </div>
   );
 };
 
-export default Exercises;
+export default Progress;
