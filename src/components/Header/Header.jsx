@@ -58,7 +58,7 @@ const Header = forwardRef((props, ref) => {
   const toggleModalFoods = async () => {
     setModalFoodsActive(!isModalFoodsOpen);
     try {
-      setLoading(true)
+      if(isModalFoodsOpen == false) setLoading(true)
       const response = await objServices.getFoods();
       const foods = response.data.food;
       setFoodsList(foods);

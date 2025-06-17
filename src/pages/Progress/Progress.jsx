@@ -5,6 +5,7 @@ import CardObj from "../../components/CardObj/CardObj";
 import { useAuth } from "../../context/AuthContext";
 import objServices from "../../services/apiObj";
 import Swal from "sweetalert2";
+import CaloriasStatsBar from "../../components/CaloriasStatsBar/CaloriasStatsBar";
 
 const Progress = () => {
   const { userName } = useAuth();
@@ -66,7 +67,7 @@ const Progress = () => {
       ) || [];
 
     keyFinalizadosExercises.forEach((exercise) => {
-      finalCalories += exercise.calorias;
+      finalCalories -= exercise.calorias;
     });
     keyFinalizadosFods.forEach((food) => {
       finalCalories += food.calorias;
@@ -85,6 +86,16 @@ const Progress = () => {
       window.location.reload();
     });
   }
+
+  // Calcular calorías consumidas y quemadas a partir de foodsEnded y exercisesEnded
+  const caloriasConsumidas = foodsEnded.reduce(
+    (total, food) => total + (food.calorias || 0),
+    0
+  );
+  const caloriasQuemadas = exercisesEnded.reduce(
+    (total, exercise) => total + (exercise.calorias || 0),
+    0
+  );
 
   return (
     <div className="content-fitness">
@@ -121,6 +132,10 @@ const Progress = () => {
           <p>No hay comidas completados.</p>
         )}
       </div>
+      <CaloriasStatsBar
+        caloriasConsumidas={caloriasConsumidas}
+        caloriasQuemadas={caloriasQuemadas}
+      />
       <button className="finalizarRutina" onClick={endRoutine}>
         Finalizar Rutina
       </button>
